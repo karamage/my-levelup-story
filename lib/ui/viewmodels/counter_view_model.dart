@@ -1,7 +1,7 @@
 import 'package:state_notifier/state_notifier.dart';
 
-class Counter extends StateNotifier<int> {
-  Counter() : super(0);
+class CounterViewModel extends StateNotifier<int> {
+  CounterViewModel() : super(0);
   void increment() => state++;
 }
 
