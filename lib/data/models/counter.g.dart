@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'counter_view_model.dart';
+part of 'counter.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
