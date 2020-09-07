@@ -10,17 +10,15 @@ class HomeScreen extends HookWidget {
     final state = useProvider(counterProvider.state);
     final counter = useProvider(counterProvider);
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('MyLevelUpStory')),
-        body: Center(
-          child: Text(state.toString()),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed:() => counter.increment(),
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+    return Scaffold(
+      appBar: AppBar(title: Text('MyLevelUpStory app')),
+      body: Center(
+        child: Text(state.toString()),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:() => counter.increment(),
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

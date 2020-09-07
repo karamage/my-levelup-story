@@ -66,46 +66,44 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('MyLevelUpStory')),
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    /*
-                    Center(
-                      child: SizedBox(
-                        width: 100.0,
-                        height: 100.0,
-                        child: Image.asset('images/icon.png'),
+    return Scaffold(
+      appBar: AppBar(title: Text('MyLevelUpStory Login')),
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  /*
+                  Center(
+                    child: SizedBox(
+                      width: 100.0,
+                      height: 100.0,
+                      child: Image.asset('images/icon.png'),
+                    ),
+                  ),
+                  */
+                  TextField(
+                      //autofocus: true,
+                      decoration: InputDecoration(
+                          labelText: "ニックネーム",
+                          hintText: "ニックネームを入力してください"
                       ),
-                    ),
-                    */
-                    TextField(
-                        autofocus: true,
-                        decoration: InputDecoration(
-                            labelText: "ニックネーム",
-                            hintText: "ニックネームを入力してください"
-                        ),
-                        controller: userNameController
-                    ),
-                    RaisedButton(
-                      child: Text('はじめる'),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onPressed: onStart,
-                    ),
-                  ],
-                ),
+                      controller: userNameController
+                  ),
+                  RaisedButton(
+                    child: Text('はじめる'),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: onStart,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
