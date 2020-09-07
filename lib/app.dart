@@ -6,6 +6,6 @@ import 'package:my_levelup_story/ui/screens/login_screen.dart';
 class MyLevelUpStoryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return HomeScreen();
   }
 }
