@@ -1,16 +1,19 @@
-//import 'package:app/data/remote/news_data_source.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  //NewsRepositoryImpl({@required NewsDataSource dataSource})
-  //    : _dataSource = dataSource;
-
-  //final NewsDataSource _dataSource;
+  final fb.FirebaseAuth _auth = fb.FirebaseAuth.instance;
 
   @override
   Future<User> login() async {
-    //return _dataSource.getNews();
-    return null;
+    fb.UserCredential ret = await _auth.signInAnonymously();
+    fb.User fuser = ret.user;
+    if (fuser == null) return null;
+    print("signInAnonymous success");
+    // TODO FirestoreにUser作成する
+    User user = User();
+    user = user.copyWith(id: fuser.uid);
+    return user;
   }
 }
