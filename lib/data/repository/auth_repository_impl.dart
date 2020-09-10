@@ -10,10 +10,6 @@ class AuthRepositoryImpl implements AuthRepository {
     fb.UserCredential ret = await _auth.signInAnonymously();
     fb.User fuser = ret.user;
     if (fuser == null) return null;
-    print("signInAnonymous success");
-    // TODO FirestoreにUser作成する
-    User user = User();
-    user = user.copyWith(id: fuser.uid);
-    return user;
+    return User().copyWith(id: fuser.uid);
   }
 }
