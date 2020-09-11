@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 import 'package:my_levelup_story/data/datasource/firebase_datasource.dart';
 import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/repository/auth_repository.dart';
