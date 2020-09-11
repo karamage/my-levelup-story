@@ -16,9 +16,9 @@ class _$AppStateTearOff {
   const _$AppStateTearOff();
 
 // ignore: unused_element
-  _AppState call({bool isLogined}) {
+  _AppState call({bool isInitCompleted}) {
     return _AppState(
-      isLogined: isLogined,
+      isInitCompleted: isInitCompleted,
     );
   }
 }
@@ -27,7 +27,7 @@ class _$AppStateTearOff {
 const $AppState = _$AppStateTearOff();
 
 mixin _$AppState {
-  bool get isLogined;
+  bool get isInitCompleted;
 
   Map<String, dynamic> toJson();
   $AppStateCopyWith<AppState> get copyWith;
@@ -36,7 +36,7 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call({bool isLogined});
+  $Res call({bool isInitCompleted});
 }
 
 class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
@@ -48,10 +48,12 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object isLogined = freezed,
+    Object isInitCompleted = freezed,
   }) {
     return _then(_value.copyWith(
-      isLogined: isLogined == freezed ? _value.isLogined : isLogined as bool,
+      isInitCompleted: isInitCompleted == freezed
+          ? _value.isInitCompleted
+          : isInitCompleted as bool,
     ));
   }
 }
@@ -60,7 +62,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLogined});
+  $Res call({bool isInitCompleted});
 }
 
 class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
@@ -73,41 +75,44 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object isLogined = freezed,
+    Object isInitCompleted = freezed,
   }) {
     return _then(_AppState(
-      isLogined: isLogined == freezed ? _value.isLogined : isLogined as bool,
+      isInitCompleted: isInitCompleted == freezed
+          ? _value.isInitCompleted
+          : isInitCompleted as bool,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_AppState implements _AppState {
-  const _$_AppState({this.isLogined});
+  const _$_AppState({this.isInitCompleted});
 
   factory _$_AppState.fromJson(Map<String, dynamic> json) =>
       _$_$_AppStateFromJson(json);
 
   @override
-  final bool isLogined;
+  final bool isInitCompleted;
 
   @override
   String toString() {
-    return 'AppState(isLogined: $isLogined)';
+    return 'AppState(isInitCompleted: $isInitCompleted)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AppState &&
-            (identical(other.isLogined, isLogined) ||
+            (identical(other.isInitCompleted, isInitCompleted) ||
                 const DeepCollectionEquality()
-                    .equals(other.isLogined, isLogined)));
+                    .equals(other.isInitCompleted, isInitCompleted)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLogined);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(isInitCompleted);
 
   @override
   _$AppStateCopyWith<_AppState> get copyWith =>
@@ -120,12 +125,12 @@ class _$_AppState implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  const factory _AppState({bool isLogined}) = _$_AppState;
+  const factory _AppState({bool isInitCompleted}) = _$_AppState;
 
   factory _AppState.fromJson(Map<String, dynamic> json) = _$_AppState.fromJson;
 
   @override
-  bool get isLogined;
+  bool get isInitCompleted;
   @override
   _$AppStateCopyWith<_AppState> get copyWith;
 }
