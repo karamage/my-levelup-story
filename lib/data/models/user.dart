@@ -18,4 +18,15 @@ abstract class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) =>
       _$UserFromJson(json);
+
+  // User作成の際のパラメータ
+  static Map<String, dynamic> addUserParams({String id, String nickname, String desc}) {
+    Map<String, dynamic> map = Map();
+    map["id"] = id;
+    map["nickname"] = nickname;
+    map["desc"] = desc;
+    map["totalLikedCount"] = 0;
+    map["totalStaredCount"] = 0;
+    return map;
+  }
 }
