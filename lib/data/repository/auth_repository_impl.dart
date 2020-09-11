@@ -1,9 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/repository/auth_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final fb.FirebaseAuth _auth = fb.FirebaseAuth.instance;
+  fb.FirebaseAuth _auth;
+
+  AuthRepositoryImpl() {
+    () async {
+      await Firebase.initializeApp();
+      _auth = fb.FirebaseAuth.instance;
+    }();
+  }
 
   @override
   Future<User> login() async {

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_levelup_story/data/providers/auth_provider.dart';
+import 'package:my_levelup_story/ui/viewmodels/auth_view_model.dart';
+import 'package:my_levelup_story/util/loading_dialog.dart';
 /*
 import 'package:provider/provider.dart';
 
@@ -14,21 +19,25 @@ import 'package:safely/common/service_terms_dialog.dart';
 import 'package:safely/common/alert_dialog_manager.dart';
 */
 
+/*
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+*/
 
-class _LoginScreenState extends State<LoginScreen> {
-  final userNameController = TextEditingController();
+class LoginScreen extends HookWidget {
+  final userNameController = useTextEditingController();
 
+  /*
   @override
   void dispose() {
     userNameController.dispose();
     super.dispose();
   }
+  */
 
-  void onStart() async {
+  void onStart(AuthViewModel authViewModel) async {
     /*
     final String name = userNameController.text;
     if (name == "") {
@@ -37,6 +46,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     ServiceTermsDialog.show(context, startRegist);
     */
+    //final context = useContext();
+    //LoadingDialog.showLoading(context);
+    final user = await authViewModel.login();
+    //LoadingDialog.hideLoading(context);
+    if (user != null) {
+      print("login ok uuid=${user.id}");
+    }
   }
 
   void startRegist(args) async {
@@ -66,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = useProvider(authProvider);
     return Scaffold(
       appBar: AppBar(title: Text('MyLevelUpStory Login')),
       body: ListView(
@@ -97,7 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text('はじめる'),
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
-                    onPressed: onStart,
+                    onPressed: () {
+                      onStart(authViewModel);
+                    },
                   ),
                 ],
               ),
