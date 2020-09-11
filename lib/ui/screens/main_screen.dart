@@ -6,7 +6,6 @@ import 'package:my_levelup_story/data/providers/auth_provider.dart';
 import 'package:my_levelup_story/ui/screens/home_screen.dart';
 import 'package:my_levelup_story/ui/screens/login_screen.dart';
 
-// Note: CounterApp is a HookWidget, from flutter_hooks.
 class MainScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
