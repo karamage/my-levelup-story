@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/providers/auth_provider.dart';
+import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/ui/viewmodels/auth_view_model.dart';
+import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
 import 'package:my_levelup_story/util/loading_dialog.dart';
 /*
 import 'package:provider/provider.dart';
@@ -37,7 +39,7 @@ class LoginScreen extends HookWidget {
   }
   */
 
-  void onStart(AuthViewModel authViewModel) async {
+  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel) async {
     /*
     final String name = userNameController.text;
     if (name == "") {
@@ -50,9 +52,10 @@ class LoginScreen extends HookWidget {
     //LoadingDialog.showLoading(context);
     final user = await authViewModel.login();
     //LoadingDialog.hideLoading(context);
-    if (user != null) {
-      print("login ok uuid=${user.id}");
-    }
+    if (user == null) return;
+    print("login ok uuid=${user.id}");
+    final String nickname = userNameController.text;
+    myUserViewModel.addUser(user.id, nickname);
   }
 
   void startRegist(args) async {
@@ -83,6 +86,7 @@ class LoginScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final authViewModel = useProvider(authProvider);
+    final myUserViewModel = useProvider(myUserProvider);
     return Scaffold(
       appBar: AppBar(title: Text('MyLevelUpStory Login')),
       body: ListView(
@@ -115,7 +119,7 @@ class LoginScreen extends HookWidget {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      onStart(authViewModel);
+                      onStart(authViewModel, myUserViewModel);
                     },
                   ),
                 ],
