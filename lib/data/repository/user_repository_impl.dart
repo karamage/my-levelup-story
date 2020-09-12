@@ -8,7 +8,8 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({@required this.ds});
 
   @override
-  Future<User> addUser(Map<String, dynamic> params) {
+  Future<User> addUser(String id, String nickname, String desc) {
+    final params = User.addUserParams(id: id, nickname: nickname, desc: desc);
     // TODO
   }
 }

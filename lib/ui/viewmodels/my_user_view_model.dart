@@ -8,7 +8,6 @@ class MyUserViewModel extends StateNotifier<User> {
   final UserRepository _repository;
 
   Future<User> addUser(String uuid, String nickname) async {
-    final params = User.addUserParams(id: uuid, nickname: nickname, desc: "");
-    return await _repository.addUser(params);
+    return await _repository.addUser(uuid, nickname, "");
   }
 }

@@ -39,7 +39,7 @@ class LoginScreen extends HookWidget {
   }
   */
 
-  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel) async {
+  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context) async {
     /*
     final String name = userNameController.text;
     if (name == "") {
@@ -49,12 +49,12 @@ class LoginScreen extends HookWidget {
     ServiceTermsDialog.show(context, startRegist);
     */
     //final context = useContext();
-    //LoadingDialog.showLoading(context);
+    LoadingDialog.showLoading(context);
     final user = await authViewModel.login();
-    //LoadingDialog.hideLoading(context);
+    LoadingDialog.hideLoading(context);
     if (user == null) return;
-    print("login ok uuid=${user.id}");
     final String nickname = userNameController.text;
+    print("login ok uuid=${user.id} name=${nickname}");
     myUserViewModel.addUser(user.id, nickname);
   }
 
@@ -119,7 +119,7 @@ class LoginScreen extends HookWidget {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      onStart(authViewModel, myUserViewModel);
+                      onStart(authViewModel, myUserViewModel, context);
                     },
                   ),
                 ],
