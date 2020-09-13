@@ -54,7 +54,7 @@ class LoginScreen extends HookWidget {
     LoadingDialog.hideLoading(context);
     if (user == null) return;
     final String nickname = userNameController.text;
-    print("login ok uuid=${user.id} name=${nickname}");
+    print("login ok uuid=${user.id} name=${nickname} ");
     myUserViewModel.addUser(user.id, nickname);
   }
 
