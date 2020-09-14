@@ -5,81 +5,29 @@ import 'package:my_levelup_story/data/providers/auth_provider.dart';
 import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/ui/viewmodels/auth_view_model.dart';
 import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
+import 'package:my_levelup_story/util/alert_dialog_manager.dart';
 import 'package:my_levelup_story/util/loading_dialog.dart';
-/*
-import 'package:provider/provider.dart';
-
-import 'package:safely/common/LocalStorageManager.dart';
-import 'package:safely/providers/app_state_model.dart';
-import 'package:safely/models/app_state_type.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:safely/models/user.dart';
-import 'package:safely/common/loading_dialog.dart';
-import 'package:safely/widgets/custom_app_bar.dart';
-
-import 'package:safely/common/service_terms_dialog.dart';
-import 'package:safely/common/alert_dialog_manager.dart';
-*/
-
-/*
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-*/
+import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class LoginScreen extends HookWidget {
   final userNameController = useTextEditingController();
 
-  /*
-  @override
-  void dispose() {
-    userNameController.dispose();
-    super.dispose();
-  }
-  */
-
   void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context) async {
-    /*
-    final String name = userNameController.text;
-    if (name == "") {
+    final String nickname = userNameController.text;
+    if (nickname == "") {
       AlertDialogManager.showAlertDialog(context, "エラー", "ニックネームを入力してください");
       return;
     }
-    ServiceTermsDialog.show(context, startRegist);
-    */
     LoadingDialog.showLoading(context);
-    final user = await authViewModel.login();
-    LoadingDialog.hideLoading(context);
+    var user = await authViewModel.login();
     if (user == null) return;
-    final String nickname = userNameController.text;
     print("login ok uuid=${user.id} name=${nickname} ");
-    myUserViewModel.addUser(user.id, nickname);
-  }
-
-  void startRegist(args) async {
-    /*
-    Navigator.pop(context); // 先に利用規約ダイアログを閉じる
-    registUser(args);
-     */
-  }
-
-  void registUser(args) async {
-    /*
-    final String name = userNameController.text;
-    AppStateModel vm = Provider.of<AppStateModel>(context, listen: false);
-    LoadingDialog.showLoading(context);
-    FirebaseUser fuser = await vm.signInAnonymous();
-    print('fuser.uid = ${fuser.uid}');
-    User user = await vm.addUser(fuser.uid, name, "");
+    user = await myUserViewModel.addUser(user.id, nickname);
     LoadingDialog.hideLoading(context);
-    print('user.id = ${user.id}');
     if (user == null) return;
     await LocalStorageManager.setMyUserId(user.id);
     await LocalStorageManager.setMyName(user.nickname);
-    vm.setAppState(AppStateType.loginCompleted);
-
-     */
+    await authViewModel.setIsLogined(true);
   }
 
   @override

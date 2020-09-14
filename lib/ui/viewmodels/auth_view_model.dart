@@ -11,4 +11,8 @@ class AuthViewModel extends StateNotifier<Auth> {
   Future<User> login() async {
     return await _repository.login();
   }
+
+  Future<void> setIsLogined(bool isLogined) async {
+    state = state.copyWith(isLogined: isLogined);
+  }
 }
