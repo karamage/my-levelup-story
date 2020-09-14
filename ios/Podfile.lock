@@ -322,6 +322,8 @@ PODS:
   - PromisesObjC (1.2.10)
   - shared_preferences (0.0.1):
     - Flutter
+  - tapable_circle_image_avator (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -329,6 +331,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - tapable_circle_image_avator (from `.symlinks/plugins/tapable_circle_image_avator/ios`)
 
 SPEC REPOS:
   trunk:
@@ -361,6 +364,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  tapable_circle_image_avator:
+    :path: ".symlinks/plugins/tapable_circle_image_avator/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -385,6 +390,7 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  tapable_circle_image_avator: adfda82c1fe43da14a572a37576925e8cc6f1ead
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
