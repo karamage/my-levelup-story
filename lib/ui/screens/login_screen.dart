@@ -10,9 +10,7 @@ import 'package:my_levelup_story/util/loading_dialog.dart';
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class LoginScreen extends HookWidget {
-  final userNameController = useTextEditingController();
-
-  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context) async {
+  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context, TextEditingController userNameController) async {
     final String nickname = userNameController.text;
     if (nickname == "") {
       AlertDialogManager.showAlertDialog(context, "エラー", "ニックネームを入力してください");
@@ -21,7 +19,6 @@ class LoginScreen extends HookWidget {
     LoadingDialog.showLoading(context);
     var user = await authViewModel.login();
     if (user == null) return;
-    print("login ok uuid=${user.id} name=${nickname} ");
     user = await myUserViewModel.addUser(user.id, nickname);
     LoadingDialog.hideLoading(context);
     if (user == null) return;
@@ -34,6 +31,7 @@ class LoginScreen extends HookWidget {
   Widget build(BuildContext context) {
     final authViewModel = useProvider(authProvider);
     final myUserViewModel = useProvider(myUserProvider);
+    final userNameController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(title: Text('MyLevelUpStory Login')),
       body: ListView(
@@ -66,7 +64,7 @@ class LoginScreen extends HookWidget {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      onStart(authViewModel, myUserViewModel, context);
+                      onStart(authViewModel, myUserViewModel, context, userNameController);
                     },
                   ),
                 ],

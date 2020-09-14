@@ -9,7 +9,7 @@ class FirebaseDatasource {
   get db => _db;
   get auth => _auth;
 
-  const String USERS_PATH = "users";
+  final String USERS_PATH = "users";
 
   initializeApp() async {
     await Firebase.initializeApp();
