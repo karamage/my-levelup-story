@@ -9,9 +9,21 @@ class FirebaseDatasource {
   get db => _db;
   get auth => _auth;
 
+  const String USERS_PATH = "users";
+
   initializeApp() async {
     await Firebase.initializeApp();
     _auth = FirebaseAuth.instance;
     _db = FirebaseFirestore.instance;
+  }
+
+  FieldValue serverTimestamp() => FieldValue.serverTimestamp();
+  Map<String, dynamic> setCreatedAtParam(Map<String, dynamic> params) {
+    params["createdAt"] = serverTimestamp();
+    return params;
+  }
+  Map<String, dynamic> setUpdatedAtParam(Map<String, dynamic> params) {
+    params["updatedAt"] = serverTimestamp();
+    return params;
   }
 }

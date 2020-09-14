@@ -48,7 +48,6 @@ class LoginScreen extends HookWidget {
     }
     ServiceTermsDialog.show(context, startRegist);
     */
-    //final context = useContext();
     LoadingDialog.showLoading(context);
     final user = await authViewModel.login();
     LoadingDialog.hideLoading(context);
