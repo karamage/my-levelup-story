@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_levelup_story/data/models/app_state_type.dart';
+import 'package:my_levelup_story/data/providers/app_state_provider.dart';
 import 'package:my_levelup_story/data/providers/auth_provider.dart';
 import 'package:my_levelup_story/data/providers/my_user_provider.dart';
+import 'package:my_levelup_story/ui/viewmodels/app_state_view_model.dart';
 import 'package:my_levelup_story/ui/viewmodels/auth_view_model.dart';
 import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
 import 'package:my_levelup_story/util/alert_dialog_manager.dart';
@@ -10,7 +13,8 @@ import 'package:my_levelup_story/util/loading_dialog.dart';
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class LoginScreen extends HookWidget {
-  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context, TextEditingController userNameController) async {
+  void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context,
+      TextEditingController userNameController, AppStateViewModel appStateViewModel) async {
     final String nickname = userNameController.text;
     if (nickname == "") {
       AlertDialogManager.showAlertDialog(context, "エラー", "ニックネームを入力してください");
@@ -25,12 +29,14 @@ class LoginScreen extends HookWidget {
     await LocalStorageManager.setMyUserId(user.id);
     await LocalStorageManager.setMyName(user.nickname);
     await authViewModel.setIsLogined(true);
+    await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
   }
 
   @override
   Widget build(BuildContext context) {
     final authViewModel = useProvider(authProvider);
     final myUserViewModel = useProvider(myUserProvider);
+    final appStateViewModel = useProvider(appStateProvider);
     final userNameController = useTextEditingController();
     return Scaffold(
       appBar: AppBar(title: Text('MyLevelUpStory Login')),
@@ -64,7 +70,7 @@ class LoginScreen extends HookWidget {
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
                     onPressed: () {
-                      onStart(authViewModel, myUserViewModel, context, userNameController);
+                      onStart(authViewModel, myUserViewModel, context, userNameController, appStateViewModel);
                     },
                   ),
                 ],

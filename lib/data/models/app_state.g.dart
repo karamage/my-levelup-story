@@ -8,11 +8,50 @@ part of 'app_state.dart';
 
 _$_AppState _$_$_AppStateFromJson(Map<String, dynamic> json) {
   return _$_AppState(
-    isInitCompleted: json['isInitCompleted'] as bool,
+    stateType: _$enumDecodeNullable(_$AppStateTypeEnumMap, json['stateType']),
   );
 }
 
 Map<String, dynamic> _$_$_AppStateToJson(_$_AppState instance) =>
     <String, dynamic>{
-      'isInitCompleted': instance.isInitCompleted,
+      'stateType': _$AppStateTypeEnumMap[instance.stateType],
     };
+
+T _$enumDecode<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+
+  final value = enumValues.entries
+      .singleWhere((e) => e.value == source, orElse: () => null)
+      ?.key;
+
+  if (value == null && unknownValue == null) {
+    throw ArgumentError('`$source` is not one of the supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return value ?? unknownValue;
+}
+
+T _$enumDecodeNullable<T>(
+  Map<T, dynamic> enumValues,
+  dynamic source, {
+  T unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$AppStateTypeEnumMap = {
+  AppStateType.init: 'init',
+  AppStateType.walkthrough: 'walkthrough',
+  AppStateType.login: 'login',
+  AppStateType.loginCompleted: 'loginCompleted',
+};
