@@ -51,6 +51,7 @@ T _$enumDecodeNullable<T>(
 
 const _$AppStateTypeEnumMap = {
   AppStateType.init: 'init',
+  AppStateType.initCompleted: 'initCompleted',
   AppStateType.walkthrough: 'walkthrough',
   AppStateType.login: 'login',
   AppStateType.loginCompleted: 'loginCompleted',
