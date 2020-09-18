@@ -14,7 +14,7 @@ abstract class Item with _$Item{
     int likeCount,
     int starCount,
     int commentCount,
-    bool isPublish,
+    bool isPublic,
     CategoryType category,
     List<String> likedUserIds,
     User user,

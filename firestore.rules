@@ -9,10 +9,25 @@ service cloud.firestore {
       return request.auth.uid == userId;
     }
 
+    function isMyItem() {
+      return resource.data.userRef != null
+        && resource.data.userRef
+        == /databases/$(database)/documents/users/$(request.auth.uid)
+    }
+
+    function isPublicItem() {
+      return resource.data.isPublic == true
+    }
+
     match /users/{userId} {
       allow get: if isUserAuthenticated(userId);
       allow create: if isUserAuthenticated(userId);
       allow update: if isUserAuthenticated(userId);
+    }
+
+    match /items/{itemId} {
+      allow create, get, update, delete: if isMyItem();
+      allow read, update: if isMyItem() || isPublicItem();
     }
   }
 }

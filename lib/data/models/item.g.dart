@@ -14,7 +14,7 @@ _$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
     likeCount: json['likeCount'] as int,
     starCount: json['starCount'] as int,
     commentCount: json['commentCount'] as int,
-    isPublish: json['isPublish'] as bool,
+    isPublic: json['isPublic'] as bool,
     category: _$enumDecodeNullable(_$CategoryTypeEnumMap, json['category']),
     likedUserIds:
         (json['likedUserIds'] as List)?.map((e) => e as String)?.toList(),
@@ -37,7 +37,7 @@ Map<String, dynamic> _$_$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'likeCount': instance.likeCount,
       'starCount': instance.starCount,
       'commentCount': instance.commentCount,
-      'isPublish': instance.isPublish,
+      'isPublic': instance.isPublic,
       'category': _$CategoryTypeEnumMap[instance.category],
       'likedUserIds': instance.likedUserIds,
       'user': instance.user,

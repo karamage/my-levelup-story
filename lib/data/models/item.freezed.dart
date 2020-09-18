@@ -23,7 +23,7 @@ class _$ItemTearOff {
       int likeCount,
       int starCount,
       int commentCount,
-      bool isPublish,
+      bool isPublic,
       CategoryType category,
       List<String> likedUserIds,
       User user,
@@ -36,7 +36,7 @@ class _$ItemTearOff {
       likeCount: likeCount,
       starCount: starCount,
       commentCount: commentCount,
-      isPublish: isPublish,
+      isPublic: isPublic,
       category: category,
       likedUserIds: likedUserIds,
       user: user,
@@ -56,7 +56,7 @@ mixin _$Item {
   int get likeCount;
   int get starCount;
   int get commentCount;
-  bool get isPublish;
+  bool get isPublic;
   CategoryType get category;
   List<String> get likedUserIds;
   User get user;
@@ -77,7 +77,7 @@ abstract class $ItemCopyWith<$Res> {
       int likeCount,
       int starCount,
       int commentCount,
-      bool isPublish,
+      bool isPublic,
       CategoryType category,
       List<String> likedUserIds,
       User user,
@@ -102,7 +102,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object likeCount = freezed,
     Object starCount = freezed,
     Object commentCount = freezed,
-    Object isPublish = freezed,
+    Object isPublic = freezed,
     Object category = freezed,
     Object likedUserIds = freezed,
     Object user = freezed,
@@ -117,7 +117,7 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
       starCount: starCount == freezed ? _value.starCount : starCount as int,
       commentCount:
           commentCount == freezed ? _value.commentCount : commentCount as int,
-      isPublish: isPublish == freezed ? _value.isPublish : isPublish as bool,
+      isPublic: isPublic == freezed ? _value.isPublic : isPublic as bool,
       category:
           category == freezed ? _value.category : category as CategoryType,
       likedUserIds: likedUserIds == freezed
@@ -153,7 +153,7 @@ abstract class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       int likeCount,
       int starCount,
       int commentCount,
-      bool isPublish,
+      bool isPublic,
       CategoryType category,
       List<String> likedUserIds,
       User user,
@@ -180,7 +180,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object likeCount = freezed,
     Object starCount = freezed,
     Object commentCount = freezed,
-    Object isPublish = freezed,
+    Object isPublic = freezed,
     Object category = freezed,
     Object likedUserIds = freezed,
     Object user = freezed,
@@ -195,7 +195,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
       starCount: starCount == freezed ? _value.starCount : starCount as int,
       commentCount:
           commentCount == freezed ? _value.commentCount : commentCount as int,
-      isPublish: isPublish == freezed ? _value.isPublish : isPublish as bool,
+      isPublic: isPublic == freezed ? _value.isPublic : isPublic as bool,
       category:
           category == freezed ? _value.category : category as CategoryType,
       likedUserIds: likedUserIds == freezed
@@ -219,7 +219,7 @@ class _$_Item implements _Item {
       this.likeCount,
       this.starCount,
       this.commentCount,
-      this.isPublish,
+      this.isPublic,
       this.category,
       this.likedUserIds,
       this.user,
@@ -242,7 +242,7 @@ class _$_Item implements _Item {
   @override
   final int commentCount;
   @override
-  final bool isPublish;
+  final bool isPublic;
   @override
   final CategoryType category;
   @override
@@ -256,7 +256,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, title: $title, body: $body, likeCount: $likeCount, starCount: $starCount, commentCount: $commentCount, isPublish: $isPublish, category: $category, likedUserIds: $likedUserIds, user: $user, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Item(id: $id, title: $title, body: $body, likeCount: $likeCount, starCount: $starCount, commentCount: $commentCount, isPublic: $isPublic, category: $category, likedUserIds: $likedUserIds, user: $user, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -278,9 +278,9 @@ class _$_Item implements _Item {
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
                     .equals(other.commentCount, commentCount)) &&
-            (identical(other.isPublish, isPublish) ||
+            (identical(other.isPublic, isPublic) ||
                 const DeepCollectionEquality()
-                    .equals(other.isPublish, isPublish)) &&
+                    .equals(other.isPublic, isPublic)) &&
             (identical(other.category, category) ||
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
@@ -306,7 +306,7 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(likeCount) ^
       const DeepCollectionEquality().hash(starCount) ^
       const DeepCollectionEquality().hash(commentCount) ^
-      const DeepCollectionEquality().hash(isPublish) ^
+      const DeepCollectionEquality().hash(isPublic) ^
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(likedUserIds) ^
       const DeepCollectionEquality().hash(user) ^
@@ -331,7 +331,7 @@ abstract class _Item implements Item {
       int likeCount,
       int starCount,
       int commentCount,
-      bool isPublish,
+      bool isPublic,
       CategoryType category,
       List<String> likedUserIds,
       User user,
@@ -353,7 +353,7 @@ abstract class _Item implements Item {
   @override
   int get commentCount;
   @override
-  bool get isPublish;
+  bool get isPublic;
   @override
   CategoryType get category;
   @override

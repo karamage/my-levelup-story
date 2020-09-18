@@ -36,6 +36,8 @@ dependencies:
   firebase_auth: ^0.18.0+1
   cloud_firestore: ^0.14.0+2
 
+  enum_to_string: ^1.0.11
+
   tapable_circle_image_avator: ^0.0.1
 
   # The following adds the Cupertino Icons font to your application.
