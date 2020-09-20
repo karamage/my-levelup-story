@@ -29,4 +29,15 @@ abstract class User with _$User {
     map["totalStaredCount"] = 0;
     return map;
   }
+
+  // ItemのサブコレクションのUserに設定するパラメータ
+  static Map<String, dynamic> getSubUserParams(User u) {
+    Map<String, dynamic> map = Map();
+    map["id"] = u.id;
+    map["nickname"] = u.nickname;
+    map["desc"] = u.desc;
+    map["totalLikedCount"] = u.totalLikedCount;
+    if (u.imageUrl != null) map["imageUrl"] = u.imageUrl;
+    return map;
+  }
 }
