@@ -10,7 +10,6 @@ import 'package:my_levelup_story/ui/viewmodels/auth_view_model.dart';
 import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
 import 'package:my_levelup_story/util/alert_dialog_manager.dart';
 import 'package:my_levelup_story/util/loading_dialog.dart';
-import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class LoginScreen extends HookWidget {
   void onStart(AuthViewModel authViewModel, MyUserViewModel myUserViewModel, BuildContext context,
@@ -21,15 +20,18 @@ class LoginScreen extends HookWidget {
       return;
     }
     LoadingDialog.showLoading(context);
-    var user = await authViewModel.login();
-    if (user == null) return;
-    user = await myUserViewModel.addUser(user.id, nickname);
-    LoadingDialog.hideLoading(context);
-    if (user == null) return;
-    await LocalStorageManager.setMyUserId(user.id);
-    await LocalStorageManager.setMyName(user.nickname);
-    await authViewModel.setIsLogined(true);
-    await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
+    try {
+      var user = await authViewModel.login();
+      user = await myUserViewModel.addUser(user.id, nickname);
+      myUserViewModel.saveMyUser(user);
+      LoadingDialog.hideLoading(context);
+      await authViewModel.setIsLogined(true);
+      await appStateViewModel.setAppStateType(AppStateType.loginCompleted);
+    } catch(e) {
+      print(e); //Bad state
+      LoadingDialog.hideLoading(context);
+      AlertDialogManager.showAlertDialog(context, "エラー", "ログインに失敗しました");
+    }
   }
 
   @override
@@ -48,15 +50,6 @@ class LoginScreen extends HookWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  /*
-                  Center(
-                    child: SizedBox(
-                      width: 100.0,
-                      height: 100.0,
-                      child: Image.asset('images/icon.png'),
-                    ),
-                  ),
-                  */
                   TextField(
                       //autofocus: true,
                       decoration: InputDecoration(

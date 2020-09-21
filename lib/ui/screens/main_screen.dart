@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/app_state_type.dart';
 import 'package:my_levelup_story/data/providers/app_state_provider.dart';
+import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/ui/screens/home_screen.dart';
 import 'package:my_levelup_story/ui/screens/login_screen.dart';
 import 'package:my_levelup_story/ui/screens/splash_screen.dart';
-import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class MainScreen extends HookWidget {
   @override
@@ -31,7 +31,8 @@ class MainScreen extends HookWidget {
 
   setLoginState() async {
     final appStateViewModel = useProvider(appStateProvider);
-    final userId = await LocalStorageManager.getMyUserId();
+    final myUserViewModel = useProvider(myUserProvider);
+    final userId = await myUserViewModel.getMyUserId();
     if (userId != null) {
       appStateViewModel.setAppStateType(AppStateType.loginCompleted);
     } else {
