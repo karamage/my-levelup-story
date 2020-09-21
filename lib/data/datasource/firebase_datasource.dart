@@ -15,6 +15,7 @@ class FirebaseDatasource {
   final String ITEMS_PATH = "items";
 
   initializeApp() async {
+    await new Future.delayed(new Duration(seconds: 1));
     await Firebase.initializeApp();
     _auth = FirebaseAuth.instance;
     _db = FirebaseFirestore.instance;
