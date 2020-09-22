@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 
-class ItemList extends StatelessWidget {
+class ItemListView extends StatelessWidget {
   final List<Item> items;
   final ScrollController scrollController;
   final VoidCallback onRefresh;
 
-  ItemList({@required this.items, this.scrollController, this.onRefresh});
+  ItemListView({@required this.items, this.scrollController, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
