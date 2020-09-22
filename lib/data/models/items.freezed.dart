@@ -16,7 +16,7 @@ class _$ItemsTearOff {
   const _$ItemsTearOff();
 
 // ignore: unused_element
-  _Items call({List<Item> items}) {
+  _Items call({List<Item> items = const []}) {
     return _Items(
       items: items,
     );
@@ -83,11 +83,12 @@ class __$ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_Items implements _Items {
-  const _$_Items({this.items});
+  const _$_Items({this.items = const []}) : assert(items != null);
 
   factory _$_Items.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemsFromJson(json);
 
+  @JsonKey(defaultValue: const [])
   @override
   final List<Item> items;
 

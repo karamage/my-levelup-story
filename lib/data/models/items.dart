@@ -7,7 +7,7 @@ part 'items.g.dart';
 @freezed
 abstract class Items with _$Items{
   const factory Items({
-    List<Item> items
+    @Default([]) List<Item> items
   }) = _Items;
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 }
