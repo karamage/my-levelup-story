@@ -7,7 +7,8 @@ part 'app_state.g.dart';
 @freezed
 abstract class AppState with _$AppState{
   const factory AppState({
-    AppStateType stateType
+    AppStateType stateType,
+    @Default(0) int selectedTabIndex,
   }) = _AppState;
   factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
 }

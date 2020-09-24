@@ -9,12 +9,14 @@ part of 'app_state.dart';
 _$_AppState _$_$_AppStateFromJson(Map<String, dynamic> json) {
   return _$_AppState(
     stateType: _$enumDecodeNullable(_$AppStateTypeEnumMap, json['stateType']),
+    selectedTabIndex: json['selectedTabIndex'] as int ?? 0,
   );
 }
 
 Map<String, dynamic> _$_$_AppStateToJson(_$_AppState instance) =>
     <String, dynamic>{
       'stateType': _$AppStateTypeEnumMap[instance.stateType],
+      'selectedTabIndex': instance.selectedTabIndex,
     };
 
 T _$enumDecode<T>(

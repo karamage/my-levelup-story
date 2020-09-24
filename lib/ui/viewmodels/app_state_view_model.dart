@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:my_levelup_story/data/datasource/firebase_datasource.dart';
 import 'package:my_levelup_story/data/models/app_state.dart';
@@ -15,5 +16,9 @@ class AppStateViewModel extends StateNotifier<AppState> {
 
   Future<void> setAppStateType(AppStateType stateType) async {
     state = state.copyWith(stateType: stateType);
+  }
+
+  setSelectedTab(int index) {
+    state = state.copyWith(selectedTabIndex: index);
   }
 }

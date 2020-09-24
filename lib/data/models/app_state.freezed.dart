@@ -16,9 +16,10 @@ class _$AppStateTearOff {
   const _$AppStateTearOff();
 
 // ignore: unused_element
-  _AppState call({AppStateType stateType}) {
+  _AppState call({AppStateType stateType, int selectedTabIndex = 0}) {
     return _AppState(
       stateType: stateType,
+      selectedTabIndex: selectedTabIndex,
     );
   }
 }
@@ -28,6 +29,7 @@ const $AppState = _$AppStateTearOff();
 
 mixin _$AppState {
   AppStateType get stateType;
+  int get selectedTabIndex;
 
   Map<String, dynamic> toJson();
   $AppStateCopyWith<AppState> get copyWith;
@@ -36,7 +38,7 @@ mixin _$AppState {
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
-  $Res call({AppStateType stateType});
+  $Res call({AppStateType stateType, int selectedTabIndex});
 }
 
 class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
@@ -49,10 +51,14 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object stateType = freezed,
+    Object selectedTabIndex = freezed,
   }) {
     return _then(_value.copyWith(
       stateType:
           stateType == freezed ? _value.stateType : stateType as AppStateType,
+      selectedTabIndex: selectedTabIndex == freezed
+          ? _value.selectedTabIndex
+          : selectedTabIndex as int,
     ));
   }
 }
@@ -61,7 +67,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
   @override
-  $Res call({AppStateType stateType});
+  $Res call({AppStateType stateType, int selectedTabIndex});
 }
 
 class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
@@ -75,27 +81,35 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object stateType = freezed,
+    Object selectedTabIndex = freezed,
   }) {
     return _then(_AppState(
       stateType:
           stateType == freezed ? _value.stateType : stateType as AppStateType,
+      selectedTabIndex: selectedTabIndex == freezed
+          ? _value.selectedTabIndex
+          : selectedTabIndex as int,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_AppState implements _AppState {
-  const _$_AppState({this.stateType});
+  const _$_AppState({this.stateType, this.selectedTabIndex = 0})
+      : assert(selectedTabIndex != null);
 
   factory _$_AppState.fromJson(Map<String, dynamic> json) =>
       _$_$_AppStateFromJson(json);
 
   @override
   final AppStateType stateType;
+  @JsonKey(defaultValue: 0)
+  @override
+  final int selectedTabIndex;
 
   @override
   String toString() {
-    return 'AppState(stateType: $stateType)';
+    return 'AppState(stateType: $stateType, selectedTabIndex: $selectedTabIndex)';
   }
 
   @override
@@ -104,12 +118,17 @@ class _$_AppState implements _AppState {
         (other is _AppState &&
             (identical(other.stateType, stateType) ||
                 const DeepCollectionEquality()
-                    .equals(other.stateType, stateType)));
+                    .equals(other.stateType, stateType)) &&
+            (identical(other.selectedTabIndex, selectedTabIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedTabIndex, selectedTabIndex)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(stateType);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(stateType) ^
+      const DeepCollectionEquality().hash(selectedTabIndex);
 
   @override
   _$AppStateCopyWith<_AppState> get copyWith =>
@@ -122,12 +141,15 @@ class _$_AppState implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  const factory _AppState({AppStateType stateType}) = _$_AppState;
+  const factory _AppState({AppStateType stateType, int selectedTabIndex}) =
+      _$_AppState;
 
   factory _AppState.fromJson(Map<String, dynamic> json) = _$_AppState.fromJson;
 
   @override
   AppStateType get stateType;
+  @override
+  int get selectedTabIndex;
   @override
   _$AppStateCopyWith<_AppState> get copyWith;
 }
