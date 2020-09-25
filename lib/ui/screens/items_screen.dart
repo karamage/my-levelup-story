@@ -9,7 +9,6 @@ class ItemsScreen extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(itemsProvider.state);
     final vm = useProvider(itemsProvider);
-    final sc = useScrollController();
     final isMounted = useIsMounted();
     useEffect((){
       if (isMounted()) {
@@ -17,6 +16,6 @@ class ItemsScreen extends HookWidget {
       }
       return null;
     }, []);
-    return ItemListView(items: state.items, scrollController: sc, onRefresh: vm.onRefresh);
+    return ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next);
   }
 }

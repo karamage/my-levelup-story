@@ -14,9 +14,6 @@ class ItemsViewModel extends StateNotifier<Items> {
   Future<void> onRefresh() async {
   }
 
-  onScroll(ScrollController sc) {
-  }
-
   Future<void> reload() async {
     print("ItemsViewModel reload");
   }
