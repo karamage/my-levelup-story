@@ -13,11 +13,8 @@ class ItemListView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final sc = useScrollController();
-    final isMounted = useIsMounted();
     useEffect((){
-      if (isMounted()) {
-        setOnScroll(sc);
-      }
+      setOnScroll(sc);
       return null;
     }, []);
     return RefreshIndicator(

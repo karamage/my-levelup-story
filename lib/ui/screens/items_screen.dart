@@ -9,11 +9,8 @@ class ItemsScreen extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(itemsProvider.state);
     final vm = useProvider(itemsProvider);
-    final isMounted = useIsMounted();
     useEffect((){
-      if (isMounted()) {
-        vm.reload();
-      }
+      vm.reload();
       return null;
     }, []);
     return ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next);
