@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/app_state_type.dart';
 import 'package:my_levelup_story/data/providers/app_state_provider.dart';
+import 'package:my_levelup_story/data/providers/auth_provider.dart';
 import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/ui/screens/home_screen.dart';
 import 'package:my_levelup_story/ui/screens/login_screen.dart';
@@ -31,9 +32,11 @@ class MainScreen extends HookWidget {
 
   setLoginState() async {
     final appStateViewModel = useProvider(appStateProvider);
+    final auth = useProvider(authProvider);
     final myUserViewModel = useProvider(myUserProvider);
     final userId = await myUserViewModel.getMyUserId();
     if (userId != null) {
+      auth.login();
       appStateViewModel.setAppStateType(AppStateType.loginCompleted);
     } else {
       appStateViewModel.setAppStateType(AppStateType.login);

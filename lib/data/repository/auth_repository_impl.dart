@@ -9,9 +9,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User> login() async {
-    final ret = await ds.auth.signInAnonymously();
-    final fuser = ret.user;
-    if (fuser == null) return null;
-    return User().copyWith(id: fuser.uid);
+    final ret = await ds.signInAnonymously();
+    if (ret == null) return null;
+    return User().copyWith(id: ret[ds.ID_KEY]);
   }
 }
