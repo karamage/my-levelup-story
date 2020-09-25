@@ -8,14 +8,13 @@ import 'package:my_levelup_story/util/router.dart';
 class MyLevelUpStoryApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final isMounted = useIsMounted();
     final appState = useProvider(appStateProvider);
     useEffect((){
-      if (isMounted()) {
-        () async {
-          await appState.initApp();
-        }();
-      }
+      () async {
+        print("appState.initApp() start");
+        await appState.initApp();
+        print("appState.initApp() end");
+      }();
       return null;
     }, []);
     return MaterialApp(
