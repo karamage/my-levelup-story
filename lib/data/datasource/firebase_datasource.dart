@@ -28,11 +28,11 @@ class FirebaseDatasource {
 
   Future<Map<String, dynamic>> _setFirebaseBasicParams(Map<String, dynamic> params) async {
     String uuid = await LocalStorageManager.getMyUserId();
-    params = await _setUserRefParam(params, uuid);
-    params = await _setSubUserParam(params, uuid);
-    params = _setIdParam(params);
-    params = _setCreatedAtParam(params);
-    params = _setUpdatedAtParam(params);
+    await _setUserRefParam(params, uuid);
+    await _setSubUserParam(params, uuid);
+    _setIdParam(params);
+    _setCreatedAtParam(params);
+    _setUpdatedAtParam(params);
     return params;
   }
   Future<Map<String, dynamic>> signInAnonymously() async {
