@@ -8,32 +8,31 @@ class FirebaseDatasource {
   // 外部からauthやFirestore触らせないようにする(Firebase依存をなくすため)
   FirebaseFirestore _db;
   FirebaseAuth _auth;
-  //get db => _db;
-  //get auth => _auth;
 
-  final String ID_KEY = "id";
-  final String USERS_PATH = "users";
-  final String ITEMS_PATH = "items";
+  final ID_KEY = "id";
+  final USERS_PATH = "users";
+  final ITEMS_PATH = "items";
+
+  final LIST_LIMIT = 10;
 
   initializeApp() async {
-    //await new Future.delayed(new Duration(seconds: 1));
     await Firebase.initializeApp();
     _auth = FirebaseAuth.instance;
     _db = FirebaseFirestore.instance;
   }
 
-  DocumentReference getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
-  DocumentReference getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
-  Future<DocumentSnapshot> getUserDoc(uuid) => getUserRef(uuid).get();
-  Future<DocumentSnapshot> getItemDoc(itemId) => getItemRef(itemId).get();
+  DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
+  DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
+  Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
+  Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
 
-  Future<Map<String, dynamic>> setFirebaseBasicParams(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> _setFirebaseBasicParams(Map<String, dynamic> params) async {
     String uuid = await LocalStorageManager.getMyUserId();
-    params = await setUserRefParam(params, uuid);
-    params = await setSubUserParam(params, uuid);
-    params = setIdParam(params);
-    params = setCreatedAtParam(params);
-    params = setUpdatedAtParam(params);
+    params = await _setUserRefParam(params, uuid);
+    params = await _setSubUserParam(params, uuid);
+    params = _setIdParam(params);
+    params = _setCreatedAtParam(params);
+    params = _setUpdatedAtParam(params);
     return params;
   }
   Future<Map<String, dynamic>> signInAnonymously() async {
@@ -45,23 +44,12 @@ class FirebaseDatasource {
     return map;
   }
 
-  String getNewFirestoreId() {
-    return _db.collection('_').doc().id;
-  }
-
-  Future<Map<String, dynamic>> setSubUserParam(Map<String, dynamic> params, String uuid, [String paramName = "user"]) async {
-    DocumentSnapshot userDoc = await getUserDoc(uuid);
-    final user = luser.User.fromJson(userDoc.data());
-    params[paramName] = luser.User.getSubUserParams(user);
-    return params;
-  }
-
   Future<Map<String, dynamic>> addUser(Map<String, dynamic> params) async {
     DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
     DocumentSnapshot snapshot = await doc.get();
     if (!snapshot.exists) {
-      setCreatedAtParam(params);
-      setUpdatedAtParam(params);
+      _setCreatedAtParam(params);
+      _setUpdatedAtParam(params);
       await doc.set(params, SetOptions(merge: true));
       snapshot = await doc.get();
     }
@@ -69,33 +57,64 @@ class FirebaseDatasource {
   }
 
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
-    params = await setFirebaseBasicParams(params);
-    return await setDocument(ITEMS_PATH, params[ID_KEY], params);
+    params = await _setFirebaseBasicParams(params);
+    return await _setDocument(ITEMS_PATH, params[ID_KEY], params);
   }
 
-  Future<Map<String, dynamic>> setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
+  Future<List<Map<String, dynamic>>> getItems(DateTime lastDate) async {
+    final q = await _getItemsQuery(lastDate);
+    return (await q.get()).docs.map((doc) => doc.data());
+  }
+
+  // --- private method ---
+
+  String _getNewFirestoreId() {
+    return _db.collection('_').doc().id;
+  }
+
+  Future<Map<String, dynamic>> _setSubUserParam(Map<String, dynamic> params, String uuid, [String paramName = "user"]) async {
+    DocumentSnapshot userDoc = await _getUserDoc(uuid);
+    final user = luser.User.fromJson(userDoc.data());
+    params[paramName] = luser.User.getSubUserParams(user);
+    return params;
+  }
+
+  Future<Map<String, dynamic>> _setDocument(String collectionPath, String documentId, Map<String, dynamic> params) async {
     DocumentReference doc = _db.collection(collectionPath).doc(documentId);
     await doc.set(params, SetOptions(merge: true));
     return (await doc.get()).data();
   }
 
-  Map<String, dynamic> setIdParam(Map<String, dynamic> params) {
-    params[ID_KEY] = getNewFirestoreId();
+  Future<Query> _getItemsQuery(DateTime lastDate) async {
+    String uuid = await LocalStorageManager.getMyUserId();
+    DocumentReference userRef = _getUserRef(uuid);
+    Query query = _db.collection(ITEMS_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .orderBy("createdAt", descending: true);
+    if (lastDate != null) {
+      final last = Timestamp.fromDate(lastDate);
+      query = query.startAfter([last]);
+    }
+    return query.limit(LIST_LIMIT);
+  }
+
+  Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
+    params[ID_KEY] = _getNewFirestoreId();
     return params;
   }
 
-  Future<Map<String, dynamic>> setUserRefParam(Map<String, dynamic> params, String uuid, [String paramName = "userRef"]) async {
-    params[paramName] = getUserRef(uuid);
+  Future<Map<String, dynamic>> _setUserRefParam(Map<String, dynamic> params, String uuid, [String paramName = "userRef"]) async {
+    params[paramName] = _getUserRef(uuid);
     return params;
   }
 
-  FieldValue serverTimestamp() => FieldValue.serverTimestamp();
-  Map<String, dynamic> setCreatedAtParam(Map<String, dynamic> params) {
-    params["createdAt"] = serverTimestamp();
+  FieldValue _serverTimestamp() => FieldValue.serverTimestamp();
+  Map<String, dynamic> _setCreatedAtParam(Map<String, dynamic> params) {
+    params["createdAt"] = _serverTimestamp();
     return params;
   }
-  Map<String, dynamic> setUpdatedAtParam(Map<String, dynamic> params) {
-    params["updatedAt"] = serverTimestamp();
+  Map<String, dynamic> _setUpdatedAtParam(Map<String, dynamic> params) {
+    params["updatedAt"] = _serverTimestamp();
     return params;
   }
 }
