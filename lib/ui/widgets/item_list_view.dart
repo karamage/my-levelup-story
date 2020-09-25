@@ -12,9 +12,9 @@ class ItemListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        //onRefresh: onRefresh,
+        onRefresh: onRefresh,
         child:ListView(
-          //controller: scrollController,
+          controller: scrollController,
           padding: const EdgeInsets.only(top: 20.0),
           scrollDirection: Axis.vertical,
           children: getChildrenItems(),

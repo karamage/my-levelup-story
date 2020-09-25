@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_levelup_story/data/providers/items_provider.dart';
+import 'package:my_levelup_story/ui/widgets/item_list_view.dart';
 
-class ItemsScreen extends StatelessWidget {
+class ItemsScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("ItemsScreen"),
-    );
+    final state = useProvider(itemsProvider.state);
+    final vm = useProvider(itemsProvider);
+    return ItemListView(items: state.items, scrollController: vm.scrollController, onRefresh: onRefresh);
+  }
+
+  Future<void> onRefresh() {
   }
 }
