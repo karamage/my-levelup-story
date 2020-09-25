@@ -8,8 +8,9 @@ import 'package:state_notifier/state_notifier.dart';
 class ItemsViewModel extends StateNotifier<Items> {
   ItemsViewModel({@required ItemRepository repository}) : _repository = repository, super(const Items()) {}
   final ItemRepository _repository;
-  // TODO useScrollController 使うように修正する
-  final ScrollController scrollController = ScrollController();
+
+  Future<void> onRefresh() async {
+  }
 
   Future<Item> addItem(String title, String body) async {
     final item = await _repository.addItem(title, body);

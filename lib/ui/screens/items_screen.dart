@@ -9,9 +9,7 @@ class ItemsScreen extends HookWidget {
   Widget build(BuildContext context) {
     final state = useProvider(itemsProvider.state);
     final vm = useProvider(itemsProvider);
-    return ItemListView(items: state.items, scrollController: vm.scrollController, onRefresh: onRefresh);
-  }
-
-  Future<void> onRefresh() {
+    final sc = useScrollController();
+    return ItemListView(items: state.items, scrollController: sc, onRefresh: vm.onRefresh);
   }
 }
