@@ -6,18 +6,28 @@ import 'package:my_levelup_story/data/repository/item_repository.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class ItemsViewModel extends StateNotifier<Items> {
-  ItemsViewModel({@required ItemRepository repository}) : _repository = repository, super(const Items()) {}
+  ItemsViewModel({@required ItemRepository repository}) : _repository = repository, super(const Items()) {
+    print("ItemsViewModel init");
+  }
   final ItemRepository _repository;
 
   Future<void> onRefresh() async {
   }
 
+  onScroll(ScrollController sc) {
+  }
+
+  Future<void> reload() async {
+    print("ItemsViewModel reload");
+  }
+  Future<void> next() async {
+    print("ItemsViewModel next");
+  }
+
   Future<Item> addItem(String title, String body) async {
     final item = await _repository.addItem(title, body);
     if (item != null) {
-      List<Item> items = [...state.items];
-      items.add(item);
-      state = state.copyWith(items: items);
+      state = state.copyWith(items: [...state.items]..add(item));
     }
     return item;
   }

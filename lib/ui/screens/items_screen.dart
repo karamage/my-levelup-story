@@ -10,6 +10,13 @@ class ItemsScreen extends HookWidget {
     final state = useProvider(itemsProvider.state);
     final vm = useProvider(itemsProvider);
     final sc = useScrollController();
+    final isMounted = useIsMounted();
+    useEffect((){
+      if (isMounted()) {
+        vm.reload();
+      }
+      return null;
+    }, []);
     return ItemListView(items: state.items, scrollController: sc, onRefresh: vm.onRefresh);
   }
 }
