@@ -57,7 +57,7 @@ class FirebaseDatasource implements RemoteDatasource {
   @override
   Future<List<Map<String, dynamic>>> getItems(DateTime lastDate) async {
     final q = await _getItemsQuery(lastDate);
-    return (await q.get()).docs.map((doc) => doc.data());
+    return (await q.get()).docs.map((doc) => doc.data()).toList();
   }
 
   // --- private method ---
