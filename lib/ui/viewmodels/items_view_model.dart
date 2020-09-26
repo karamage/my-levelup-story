@@ -12,7 +12,6 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
   final ItemRepository _repository;
 
-  bool _isLoading = false;
   Item _lastItem = null;
   bool _isLast = false;
 
@@ -20,22 +19,22 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<void> reload() async {
-    if (_isLoading) return;
     print("ItemsViewModel reload start");
     _clear();
-    _isLoading = true;
     final list = await _repository.getMyItems(null);
     if (list.length > 0) {
       _lastItem = list.last;
     }
     _isLast = list.length < LIST_LIMIT;
-    _isLoading = false;
-    state = state.copyWith(items: list);
+    state = state.copyWith(items: list, isLoading: false);
     print("ItemsViewModel reload end");
   }
 
   Future<void> next() async {
     print("ItemsViewModel next start");
+    // for now
+    if (_lastItem == null && _isLast) {
+    }
     print("ItemsViewModel next end");
   }
 
@@ -48,7 +47,6 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   _clear() {
-    _isLoading = false;
     _isLast = false;
     _lastItem = null;
   }

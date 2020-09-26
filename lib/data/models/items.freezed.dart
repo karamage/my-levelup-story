@@ -16,9 +16,10 @@ class _$ItemsTearOff {
   const _$ItemsTearOff();
 
 // ignore: unused_element
-  _Items call({List<Item> items = const []}) {
+  _Items call({List<Item> items = const [], bool isLoading = true}) {
     return _Items(
       items: items,
+      isLoading: isLoading,
     );
   }
 }
@@ -28,6 +29,7 @@ const $Items = _$ItemsTearOff();
 
 mixin _$Items {
   List<Item> get items;
+  bool get isLoading;
 
   Map<String, dynamic> toJson();
   $ItemsCopyWith<Items> get copyWith;
@@ -36,7 +38,7 @@ mixin _$Items {
 abstract class $ItemsCopyWith<$Res> {
   factory $ItemsCopyWith(Items value, $Res Function(Items) then) =
       _$ItemsCopyWithImpl<$Res>;
-  $Res call({List<Item> items});
+  $Res call({List<Item> items, bool isLoading});
 }
 
 class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
@@ -49,9 +51,11 @@ class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
   @override
   $Res call({
     Object items = freezed,
+    Object isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       items: items == freezed ? _value.items : items as List<Item>,
+      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
 }
@@ -60,7 +64,7 @@ abstract class _$ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
   factory _$ItemsCopyWith(_Items value, $Res Function(_Items) then) =
       __$ItemsCopyWithImpl<$Res>;
   @override
-  $Res call({List<Item> items});
+  $Res call({List<Item> items, bool isLoading});
 }
 
 class __$ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
@@ -74,16 +78,20 @@ class __$ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
   @override
   $Res call({
     Object items = freezed,
+    Object isLoading = freezed,
   }) {
     return _then(_Items(
       items: items == freezed ? _value.items : items as List<Item>,
+      isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
     ));
   }
 }
 
 @JsonSerializable()
 class _$_Items implements _Items {
-  const _$_Items({this.items = const []}) : assert(items != null);
+  const _$_Items({this.items = const [], this.isLoading = true})
+      : assert(items != null),
+        assert(isLoading != null);
 
   factory _$_Items.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemsFromJson(json);
@@ -91,10 +99,13 @@ class _$_Items implements _Items {
   @JsonKey(defaultValue: const [])
   @override
   final List<Item> items;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'Items(items: $items)';
+    return 'Items(items: $items, isLoading: $isLoading)';
   }
 
   @override
@@ -102,12 +113,17 @@ class _$_Items implements _Items {
     return identical(this, other) ||
         (other is _Items &&
             (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)));
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.isLoading, isLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoading, isLoading)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(items);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(isLoading);
 
   @override
   _$ItemsCopyWith<_Items> get copyWith =>
@@ -120,12 +136,14 @@ class _$_Items implements _Items {
 }
 
 abstract class _Items implements Items {
-  const factory _Items({List<Item> items}) = _$_Items;
+  const factory _Items({List<Item> items, bool isLoading}) = _$_Items;
 
   factory _Items.fromJson(Map<String, dynamic> json) = _$_Items.fromJson;
 
   @override
   List<Item> get items;
+  @override
+  bool get isLoading;
   @override
   _$ItemsCopyWith<_Items> get copyWith;
 }

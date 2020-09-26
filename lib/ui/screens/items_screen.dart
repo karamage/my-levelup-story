@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/providers/items_provider.dart';
 import 'package:my_levelup_story/ui/widgets/item_list_view.dart';
+import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
 
 class ItemsScreen extends HookWidget {
   @override
@@ -13,6 +14,13 @@ class ItemsScreen extends HookWidget {
       vm.reload();
       return null;
     }, []);
-    return ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next);
+    return Column(
+      children: [
+        if (state.isLoading) LoadingIndicator(),
+        Flexible(
+          child:ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next),
+        ),
+      ],
+    );
   }
 }

@@ -13,9 +13,11 @@ _$_Items _$_$_ItemsFromJson(Map<String, dynamic> json) {
                 e == null ? null : Item.fromJson(e as Map<String, dynamic>))
             ?.toList() ??
         [],
+    isLoading: json['isLoading'] as bool ?? true,
   );
 }
 
 Map<String, dynamic> _$_$_ItemsToJson(_$_Items instance) => <String, dynamic>{
       'items': instance.items,
+      'isLoading': instance.isLoading,
     };
