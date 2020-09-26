@@ -4,17 +4,17 @@ import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/repository/item_repository.dart';
 
 class ItemRepositoryImpl implements ItemRepository {
-  final RemoteDatasource ds;
-  ItemRepositoryImpl({@required this.ds});
+  final RemoteDatasource _ds;
+  ItemRepositoryImpl({@required RemoteDatasource ds}) : _ds = ds;
 
   @override
   Future<Item> addItem(String title, String body) async {
-    var params = Item.createParams(
+    final params = Item.createParams(
         title: title,
         body: body,
         isPublic: false, // TODO とりあえず
     );
-    return Item.fromJson(await ds.addItem(params));
+    return Item.fromJson(await _ds.addItem(params));
   }
 
   @override
