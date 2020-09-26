@@ -1,10 +1,10 @@
 import 'package:meta/meta.dart';
-import 'package:my_levelup_story/data/datasource/firebase_datasource.dart';
+import 'package:my_levelup_story/data/datasource/remote_datasource.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/repository/item_repository.dart';
 
 class ItemRepositoryImpl implements ItemRepository {
-  final FirebaseDatasource ds;
+  final RemoteDatasource ds;
   ItemRepositoryImpl({@required this.ds});
 
   @override

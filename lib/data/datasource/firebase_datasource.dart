@@ -1,26 +1,66 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_levelup_story/data/datasource/remote_datasource.dart';
 import 'package:my_levelup_story/data/models/user.dart' as luser;
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 
-class FirebaseDatasource {
+class FirebaseDatasource implements RemoteDatasource {
   // 外部からauthやFirestore触らせないようにする(Firebase依存をなくすため)
   FirebaseFirestore _db;
   FirebaseAuth _auth;
 
+  @override
   final ID_KEY = "id";
+
   final USERS_PATH = "users";
   final ITEMS_PATH = "items";
 
   final LIST_LIMIT = 10;
 
+  @override
   initializeApp() async {
     await Firebase.initializeApp();
     _auth = FirebaseAuth.instance;
     _db = FirebaseFirestore.instance;
   }
 
+  @override
+  Future<Map<String, dynamic>> signInAnonymously() async {
+    final ret = await _auth.signInAnonymously();
+    final firebaseUser = ret?.user;
+    if (firebaseUser == null) return null;
+    Map<String, dynamic> map = Map();
+    map[ID_KEY] = firebaseUser.uid;
+    return map;
+  }
+
+  @override
+  Future<Map<String, dynamic>> addUser(Map<String, dynamic> params) async {
+    DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
+    DocumentSnapshot snapshot = await doc.get();
+    if (!snapshot.exists) {
+      _setCreatedAtParam(params);
+      _setUpdatedAtParam(params);
+      await doc.set(params, SetOptions(merge: true));
+      snapshot = await doc.get();
+    }
+    return snapshot.data();
+  }
+
+  @override
+  Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
+    params = await _setFirebaseBasicParams(params);
+    return await _setDocument(ITEMS_PATH, params[ID_KEY], params);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getItems(DateTime lastDate) async {
+    final q = await _getItemsQuery(lastDate);
+    return (await q.get()).docs.map((doc) => doc.data());
+  }
+
+  // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
   Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
@@ -35,38 +75,6 @@ class FirebaseDatasource {
     _setUpdatedAtParam(params);
     return params;
   }
-  Future<Map<String, dynamic>> signInAnonymously() async {
-    final ret = await _auth.signInAnonymously();
-    final firebaseUser = ret?.user;
-    if (firebaseUser == null) return null;
-    Map<String, dynamic> map = Map();
-    map[ID_KEY] = firebaseUser.uid;
-    return map;
-  }
-
-  Future<Map<String, dynamic>> addUser(Map<String, dynamic> params) async {
-    DocumentReference doc = _db.collection(USERS_PATH).doc(params[ID_KEY]);
-    DocumentSnapshot snapshot = await doc.get();
-    if (!snapshot.exists) {
-      _setCreatedAtParam(params);
-      _setUpdatedAtParam(params);
-      await doc.set(params, SetOptions(merge: true));
-      snapshot = await doc.get();
-    }
-    return snapshot.data();
-  }
-
-  Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
-    params = await _setFirebaseBasicParams(params);
-    return await _setDocument(ITEMS_PATH, params[ID_KEY], params);
-  }
-
-  Future<List<Map<String, dynamic>>> getItems(DateTime lastDate) async {
-    final q = await _getItemsQuery(lastDate);
-    return (await q.get()).docs.map((doc) => doc.data());
-  }
-
-  // --- private method ---
 
   String _getNewFirestoreId() {
     return _db.collection('_').doc().id;
