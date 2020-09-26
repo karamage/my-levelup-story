@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_levelup_story/data/datasource/remote_datasource.dart';
 import 'package:my_levelup_story/data/models/user.dart' as luser;
+import 'package:my_levelup_story/util/constants.dart';
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class FirebaseDatasource implements RemoteDatasource {
@@ -10,13 +11,11 @@ class FirebaseDatasource implements RemoteDatasource {
   FirebaseFirestore _db;
   FirebaseAuth _auth;
 
-  @override
-  final ID_KEY = "id";
+  //@override
+  //final ID_KEY = "id";
 
   final USERS_PATH = "users";
   final ITEMS_PATH = "items";
-
-  final LIST_LIMIT = 10;
 
   @override
   initializeApp() async {

@@ -11,12 +11,19 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
   final ItemRepository _repository;
 
+  bool _isLoading = false;
+  Item _lastItem = null;
+  bool _isLast = false;
+
   Future<void> onRefresh() async {
   }
 
   Future<void> reload() async {
+    if (_isLoading) return;
     print("ItemsViewModel reload");
+    //_clear();
   }
+
   Future<void> next() async {
     print("ItemsViewModel next");
   }
@@ -27,5 +34,12 @@ class ItemsViewModel extends StateNotifier<Items> {
       state = state.copyWith(items: [...state.items]..add(item));
     }
     return item;
+  }
+
+  _clear() {
+    _isLoading = false;
+    _isLast = false;
+    _lastItem = null;
+    state = state.copyWith(items: []);
   }
 }

@@ -1,6 +1,6 @@
 
 abstract class RemoteDatasource {
-  get ID_KEY;
+  //get ID_KEY;
   initializeApp();
   Future<Map<String, dynamic>> signInAnonymously();
   Future<Map<String, dynamic>> addUser(Map<String, dynamic> params);
