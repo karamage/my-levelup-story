@@ -16,15 +16,15 @@ class ItemsViewModel extends StateNotifier<Items> {
   bool _isLast = false;
 
   Future<void> onRefresh() async {
+    state = state.copyWith(isLoading: true);
+    await reload();
   }
 
   Future<void> reload() async {
     print("ItemsViewModel reload start");
     _clear();
-    final list = await _repository.getMyItems(null);
-    if (list.length > 0) {
-      _lastItem = list.last;
-    }
+    final list = await _repository.getMyItems();
+    if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: list, isLoading: false);
     print("ItemsViewModel reload end");
