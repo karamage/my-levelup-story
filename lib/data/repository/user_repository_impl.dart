@@ -4,12 +4,12 @@ import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final RemoteDatasource ds;
-  UserRepositoryImpl({@required this.ds});
+  final RemoteDatasource _ds;
+  UserRepositoryImpl({@required RemoteDatasource ds}) : _ds = ds;
 
   @override
   Future<User> addUser(String id, String nickname, String desc) async {
     final params = User.addUserParams(id: id, nickname: nickname, desc: desc);
-    return User.fromJson(await ds.addUser(params));
+    return User.fromJson(await _ds.addUser(params));
   }
 }

@@ -4,13 +4,14 @@ import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final RemoteDatasource ds;
-  AuthRepositoryImpl({@required this.ds});
+  final RemoteDatasource _ds;
+  AuthRepositoryImpl({@required RemoteDatasource ds}) : _ds = ds;
 
   @override
   Future<User> login() async {
-    final ret = await ds.signInAnonymously();
+    final ret = await _ds.signInAnonymously();
     if (ret == null) return null;
-    return User().copyWith(id: ret[ds.ID_KEY]);
+    print("login ok ID_KEY=${_ds.ID_KEY} id=${ret[_ds.ID_KEY]}");
+    return User().copyWith(id: ret[_ds.ID_KEY]);
   }
 }
