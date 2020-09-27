@@ -7,8 +7,9 @@ class ItemListView extends HookWidget {
   final List<Item> items;
   final VoidCallback onRefresh;
   final VoidCallback onNext;
+  final List<Widget> Function(List<Item> items) buildCells;
 
-  ItemListView({@required this.items, this.onRefresh, this.onNext});
+  ItemListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class ItemListView extends HookWidget {
           controller: sc,
           padding: const EdgeInsets.only(top: 20.0),
           scrollDirection: Axis.vertical,
-          children: getChildrenItems(),
+          children: buildCells(items),
         )
     );
   }
@@ -39,7 +40,9 @@ class ItemListView extends HookWidget {
     });
   }
 
+  /*
   List<Widget> getChildrenItems() {
-    return items.map((item) => ItemCell(item: item)).toList();
+    //return items.map((item) => ItemCell(item: item)).toList();
   }
+   */
 }
