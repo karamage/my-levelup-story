@@ -31,18 +31,19 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<void> next() async {
+    if (state.isLoading == true || _isLast) return;
     print("ItemsViewModel next start");
-    // for now
-    if (_lastItem == null && _isLast) {
-    }
+    state = state.copyWith(isLoading: true);
+    final list = await _repository.getMyItems(lastItem: _lastItem);
+    _lastItem = list.length > 0 ? list.last : null;
+    _isLast = list.length < LIST_LIMIT;
+    state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
     print("ItemsViewModel next end");
   }
 
   Future<Item> addItem(String title, String body) async {
     final item = await _repository.addItem(title, body);
-    if (item != null) {
-      state = state.copyWith(items: [...state.items]..add(item));
-    }
+    if (item != null) state = state.copyWith(items: [...state.items]..add(item));
     return item;
   }
 
