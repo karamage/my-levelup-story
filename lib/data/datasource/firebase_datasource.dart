@@ -54,8 +54,8 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getItems(DateTime lastDate) async {
-    final q = await _getItemsQuery(lastDate);
+  Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate) async {
+    final q = await _getItemsQuery(userId, lastDate);
     return (await q.get()).docs.map((doc) => doc.data()).toList();
   }
 
@@ -92,9 +92,9 @@ class FirebaseDatasource implements RemoteDatasource {
     return (await doc.get()).data();
   }
 
-  Future<Query> _getItemsQuery(DateTime lastDate) async {
-    String uuid = await LocalStorageManager.getMyUserId();
-    DocumentReference userRef = _getUserRef(uuid);
+  Future<Query> _getItemsQuery(String userId, DateTime lastDate) async {
+    print("_getItemsQuery() userId=$userId");
+    DocumentReference userRef = _getUserRef(userId);
     Query query = _db.collection(ITEMS_PATH)
         .where("userRef", isEqualTo: userRef)
         .orderBy("createdAt", descending: true);

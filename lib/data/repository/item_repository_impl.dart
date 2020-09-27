@@ -18,8 +18,8 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
-  Future<List<Item>> getMyItems({Item lastItem}) async {
-    final jsons = await _ds.getItems(lastItem?.createdAt);
+  Future<List<Item>> getItems({String userId, Item lastItem}) async {
+    final jsons = await _ds.getItems(userId, lastItem?.createdAt);
     return jsons.map((json) => Item.fromJson(json)).toList();
   }
 }
