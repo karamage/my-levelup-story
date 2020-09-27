@@ -16,10 +16,11 @@ class ItemsScreen extends HookWidget {
     }, []);
     return Column(
       children: [
-        if (state.isLoading) LoadingIndicator(),
+        if (state.items.length == 0 && state.isLoading) LoadingIndicator(),
         Flexible(
           child:ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next),
         ),
+        if (state.items.length > 0 && state.isLoading) LoadingIndicator(),
       ],
     );
   }
