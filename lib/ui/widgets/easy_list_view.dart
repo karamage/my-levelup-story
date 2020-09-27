@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:my_levelup_story/data/models/item.dart';
 
-class ItemListView extends HookWidget {
-  final List<Item> items;
+class EasyListView<T> extends HookWidget {
+  final List<T> items;
   final VoidCallback onRefresh;
   final VoidCallback onNext;
-  final List<Widget> Function(List<Item> items) buildCells;
+  final List<Widget> Function(List<T> items) buildCells;
 
-  ItemListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells});
+  EasyListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells});
 
   @override
   Widget build(BuildContext context) {

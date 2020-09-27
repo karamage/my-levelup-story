@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/providers/items_provider.dart';
+import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
-import 'package:my_levelup_story/ui/widgets/item_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
 
 class ItemsScreen extends HookWidget {
@@ -20,7 +20,7 @@ class ItemsScreen extends HookWidget {
       children: [
         if (state.items.length == 0 && state.isLoading) LoadingIndicator(),
         Flexible(
-          child:ItemListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next, buildCells: buildCells),
+          child:EasyListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next, buildCells: buildCells),
         ),
         if (state.items.length > 0 && state.isLoading) LoadingIndicator(),
       ],
