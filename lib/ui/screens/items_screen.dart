@@ -15,19 +15,13 @@ class ItemsScreen extends HookWidget {
       vm.reload();
       return null;
     }, []);
-    return Column(
-      children: [
-        if (state.items.length == 0 && state.isLoading) LoadingIndicator(),
-        Flexible(
-          child:EasyListView(
-              items: state.items,
-              onRefresh: vm.onRefresh,
-              onNext: vm.next,
-              buildCells: (items) => items.map((item) => ItemCell(item: item)).toList(),
-          ),
-        ),
-        if (state.items.length > 0 && state.isLoading) LoadingIndicator(),
-      ],
+    return EasyListView(
+      items: state.items,
+      onRefresh: vm.onRefresh,
+      onNext: vm.next,
+      buildCells: (items) => items.map((item) => ItemCell(item: item)).toList(),
+      isLoading: state.isLoading,
+      loading: LoadingIndicator(),
     );
   }
 }
