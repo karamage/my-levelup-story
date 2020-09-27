@@ -20,14 +20,15 @@ class ItemsScreen extends HookWidget {
       children: [
         if (state.items.length == 0 && state.isLoading) LoadingIndicator(),
         Flexible(
-          child:EasyListView(items: state.items, onRefresh: vm.onRefresh, onNext: vm.next, buildCells: buildCells),
+          child:EasyListView(
+              items: state.items,
+              onRefresh: vm.onRefresh,
+              onNext: vm.next,
+              buildCells: (items) => items.map((item) => ItemCell(item: item)).toList(),
+          ),
         ),
         if (state.items.length > 0 && state.isLoading) LoadingIndicator(),
       ],
     );
-  }
-
-  List<Widget> buildCells(List<Item> items) {
-    return items.map((item) => ItemCell(item: item)).toList();
   }
 }
