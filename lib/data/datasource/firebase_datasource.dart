@@ -93,7 +93,6 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   Future<Query> _getItemsQuery(String userId, DateTime lastDate) async {
-    print("_getItemsQuery() userId=$userId");
     DocumentReference userRef = _getUserRef(userId);
     Query query = _db.collection(ITEMS_PATH)
         .where("userRef", isEqualTo: userRef)
