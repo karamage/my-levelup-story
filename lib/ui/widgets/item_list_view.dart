@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_levelup_story/data/models/item.dart';
-import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 
 class ItemListView extends HookWidget {
   final List<Item> items;
@@ -39,10 +38,4 @@ class ItemListView extends HookWidget {
       }
     });
   }
-
-  /*
-  List<Widget> getChildrenItems() {
-    //return items.map((item) => ItemCell(item: item)).toList();
-  }
-   */
 }
