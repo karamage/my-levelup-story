@@ -43,7 +43,7 @@ class ItemsViewModel extends StateNotifier<Items> {
 
   Future<Item> addItem(String title, String body) async {
     final item = await _repository.addItem(title, body);
-    if (item != null) state = state.copyWith(items: [...state.items]..add(item));
+    if (item != null) state = state.copyWith(items: [...state.items]..insert(0, item));
     return item;
   }
 
