@@ -14,10 +14,25 @@ class AddItemScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleController = useTextEditingController();
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
       body: InputFormsView(
-        children: [],
+        children: [
+          _buildTitleForm(titleController),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTitleForm(TextEditingController titleController) {
+    return TextField(
+      controller: titleController,
+      autofocus: true,
+      maxLength: 32,
+      decoration: InputDecoration(
+          labelText: "タイトル",
+          hintText: "本を3ページ読みすすめた。"
       ),
     );
   }
