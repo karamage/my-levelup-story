@@ -14,7 +14,7 @@ class AddItemScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WhiteAppBar(text: headerTitle()),
+      appBar: WhiteAppBar.build(headerTitle()),
       body: Container(child: Text("AddItemScreen")),
     );
   }

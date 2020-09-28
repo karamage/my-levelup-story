@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_levelup_story/data/providers/app_state_provider.dart';
 import 'package:my_levelup_story/ui/widgets/bottom_tabs_factory.dart';
+import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
 
 // Note: CounterApp is a HookWidget, from flutter_hooks.
 class HomeScreen extends HookWidget {
@@ -12,7 +13,7 @@ class HomeScreen extends HookWidget {
     final state = useProvider(appStateProvider.state);
     final app = useProvider(appStateProvider);
     return Scaffold(
-      appBar: AppBar(title: Text('MyLevelUpStory app')),//CustomAppBar.buildAppBar(BottomTabsFactory.headerTitle(_index), actions: headerActions(_index)),
+      appBar: WhiteAppBar.build("My LevelUp Story"),
       body: new PageView(
         controller: pageController,
         onPageChanged: (int index) {

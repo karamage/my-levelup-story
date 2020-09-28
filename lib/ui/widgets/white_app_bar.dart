@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 
-class WhiteAppBar extends AppBar {
-  final String text;
-  final List<Widget> actions;
-
-  WhiteAppBar({@required this.text, this.actions});
-
-  @override
-  Widget build(BuildContext context) {
+class WhiteAppBar {
+  static Widget build(String title, [List<Widget> actions]) {
     return AppBar(
-      title: Text(text,
+      title: Text(title,
           style: TextStyle(color: Colors.grey)
       ),
       backgroundColor: Colors.white,
