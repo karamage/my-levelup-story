@@ -15,11 +15,13 @@ class AddItemScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final titleController = useTextEditingController();
+    final bodyController = useTextEditingController();
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
       body: InputFormsView(
         children: [
           _buildTitleForm(titleController),
+          _buildBodyForm(bodyController),
         ],
       ),
     );
@@ -37,5 +39,19 @@ class AddItemScreen extends HookWidget {
     );
   }
 
+  Widget _buildBodyForm(TextEditingController bodyController) {
+    return TextField(
+      controller: bodyController,
+      //maxLines: 3,
+      maxLines: null,
+      maxLength: 180,
+      keyboardType: TextInputType.multiline,
+      //textInputAction: TextInputAction.newline,
+      decoration: InputDecoration(
+          labelText: "本文",
+          hintText: "「まず行動する」という言葉に勇気をもらえました。"
+      ),
+    );
+  }
 }
 
