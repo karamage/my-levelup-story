@@ -20,14 +20,16 @@ class EasyListView<T> extends HookWidget {
     }, []);
     return Column(
       children: [
-        if (items.length == 0 && isLoading == true && loading != null) loading,
+        if (_isShowLoading()) loading,
         Flexible(
           child: _buildList(sc)
         ),
-        if (items.length > 0 && isLoading == true && loading != null) loading,
+        if (_isShowLoading()) loading,
       ],
     );
   }
+
+  _isShowLoading() => items.length == 0 && isLoading == true && loading != null;
 
   Widget _buildList(ScrollController sc) {
     return RefreshIndicator(
@@ -47,7 +49,9 @@ class EasyListView<T> extends HookWidget {
       final currentPosition = sc.position.pixels;
       if (maxScrollExtent > 0 &&
           (maxScrollExtent - 20.0) <= currentPosition) {
-        onNext();
+        if (onNext != null) {
+          onNext();
+        }
       }
     });
   }
