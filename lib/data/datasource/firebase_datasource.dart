@@ -44,19 +44,19 @@ class FirebaseDatasource implements RemoteDatasource {
       await doc.set(params, SetOptions(merge: true));
       snapshot = await doc.get();
     }
-    return snapshot.data();
+    return convertTimestamp(snapshot.data());
   }
 
   @override
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
     params = await _setFirebaseBasicParams(params);
-    return await _setDocument(ITEMS_PATH, params[ID_KEY], params);
+    return convertTimestamp(await _setDocument(ITEMS_PATH, params[ID_KEY], params));
   }
 
   @override
   Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate) async {
     final q = await _getItemsQuery(userId, lastDate);
-    return (await q.get()).docs.map((doc) => doc.data()).toList();
+    return (await q.get()).docs.map((doc) => convertTimestamp(doc.data())).toList();
   }
 
   // --- private method ---
@@ -64,6 +64,16 @@ class FirebaseDatasource implements RemoteDatasource {
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
   Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
   Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
+
+  Map<String, dynamic> convertTimestamp(Map<String, dynamic> json) {
+    if (json["createdAt"] is Timestamp) {
+      json["createdAt"] = json["createdAt"].toDate().toString();
+    }
+    if (json["updatedAt"] is Timestamp) {
+      json["updatedAt"] = json["updatedAt"].toDate().toString();
+    }
+    return json;
+  }
 
   Future<Map<String, dynamic>> _setFirebaseBasicParams(Map<String, dynamic> params) async {
     String uuid = await LocalStorageManager.getMyUserId();
