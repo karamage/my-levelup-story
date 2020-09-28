@@ -15,6 +15,12 @@ service cloud.firestore {
         == /databases/$(database)/documents/users/$(request.auth.uid)
     }
 
+    function isRequestMyItem() {
+      return request.resource.data.userRef != null
+        && request.resource.data.userRef
+        == /databases/$(database)/documents/users/$(request.auth.uid)
+    }
+
     function isPublicItem() {
       return resource.data.isPublic == true
     }
@@ -26,7 +32,8 @@ service cloud.firestore {
     }
 
     match /items/{itemId} {
-      allow create, get, update, delete: if isMyItem();
+      allow create: if isRequestMyItem();
+      allow get, update, delete: if isMyItem();
       allow read, update: if isMyItem() || isPublicItem();
     }
   }

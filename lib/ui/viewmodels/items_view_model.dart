@@ -41,9 +41,10 @@ class ItemsViewModel extends StateNotifier<Items> {
     state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
   }
 
-  Future<void> addItem(String title, String body) async {
+  Future<Item> addItem(String title, String body) async {
     final item = await _repository.addItem(title, body);
     if (item != null) state = state.copyWith(items: [...state.items]..add(item));
+    return item;
   }
 
   // Itemの取得場所を切り替える際はrepositoryの実装をDIで切り替えるようにする

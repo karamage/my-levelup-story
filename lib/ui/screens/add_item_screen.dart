@@ -6,6 +6,7 @@ import 'package:my_levelup_story/data/providers/items_provider.dart';
 import 'package:my_levelup_story/ui/viewmodels/items_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/input_forms_view.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
+import 'package:my_levelup_story/util/loading_dialog.dart';
 
 class AddItemScreen extends HookWidget {
   final Item editItem; // 更新の場合はここに値が入る。作成の場合はnull
@@ -26,15 +27,20 @@ class AddItemScreen extends HookWidget {
         children: [
           _buildTitleForm(titleController),
           _buildBodyForm(bodyController),
-          _buildSubmitButton(vm),
+          _buildSubmitButton(vm, titleController, bodyController, context),
         ],
       ),
     );
   }
 
-  _submit(ItemsViewModel vm) {
-    //TODO
-    print("submit");
+  _submit(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx) async {
+    final String title = titlec.text;
+    final String body = bodyc.text;
+    LoadingDialog.showLoading(ctx);
+    final addedItem = await vm.addItem(title, body);
+    LoadingDialog.hideLoading(ctx);
+    if (callback != null) callback(addedItem);
+    Navigator.pop(ctx);
   }
 
   Widget _buildTitleForm(TextEditingController titleController) {
@@ -64,12 +70,12 @@ class AddItemScreen extends HookWidget {
     );
   }
 
-  Widget _buildSubmitButton(ItemsViewModel vm) {
+  Widget _buildSubmitButton(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx) {
     return RaisedButton(
       child: Text(buttonTitle()),
       color: Colors.blue,
       textColor: Colors.white,
-      onPressed: () => _submit(vm),
+      onPressed: () => _submit(vm, titlec, bodyc, ctx),
     );
   }
 }
