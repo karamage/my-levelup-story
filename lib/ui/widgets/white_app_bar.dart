@@ -9,6 +9,7 @@ class WhiteAppBar {
       backgroundColor: Colors.white,
       brightness: Brightness.light,
       actions: actions,
+      iconTheme: IconThemeData(color: Colors.grey),
     );
   }
 }
