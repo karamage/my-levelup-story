@@ -1,16 +1,34 @@
 # my_levelup_story
 
-A new Flutter project.
+My Levelup Story is an app that keeps track of your daily growth.
 
-## Getting Started
+We are working on it using Flutter + Firebase.
+It's currently under development.
 
-This project is a starting point for a Flutter application.
+## Library we used
 
-A few resources to get you started if this is your first Flutter project:
+* Riverpod
+* Flutter Hooks
+* State Notifier
+* Freezed.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### DB
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Firestore.
+
+## Some of the things you'll learn include
+
+It is written using Riverpod and Flutter Hooks.
+The ViewModel uses a StateNotifier.
+Riverpod and Flutter Hooks have only been around for a short period of time, so there is not a lot of information available on the internet.
+So My Levelup Story is a valuable resource for learning about Riverpod and Hooks.
+
+The repository code is a great way to get a better understanding of modern Flutter app development with Riverpod.
+Some of the things you'll learn include.
+
+* How to do MVVM and DI with Riverpod, Hooks and StateNotifier
+* How to use Hooks (useProvider, useMemorize, useFuture)
+* Immutable state using freezed
+* How to use Firestore
+
+Thank you for reading.
