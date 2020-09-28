@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/data/providers/items_provider.dart';
+import 'package:my_levelup_story/ui/viewmodels/items_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/input_forms_view.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
 
@@ -16,15 +19,22 @@ class AddItemScreen extends HookWidget {
   Widget build(BuildContext context) {
     final titleController = useTextEditingController();
     final bodyController = useTextEditingController();
+    final vm = useProvider(itemsProvider);
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
       body: InputFormsView(
         children: [
           _buildTitleForm(titleController),
           _buildBodyForm(bodyController),
+          _buildSubmitButton(vm),
         ],
       ),
     );
+  }
+
+  _submit(ItemsViewModel vm) {
+    //TODO
+    print("submit");
   }
 
   Widget _buildTitleForm(TextEditingController titleController) {
@@ -51,6 +61,15 @@ class AddItemScreen extends HookWidget {
           labelText: "本文",
           hintText: "「まず行動する」という言葉に勇気をもらえました。"
       ),
+    );
+  }
+
+  Widget _buildSubmitButton(ItemsViewModel vm) {
+    return RaisedButton(
+      child: Text(buttonTitle()),
+      color: Colors.blue,
+      textColor: Colors.white,
+      onPressed: () => _submit(vm),
     );
   }
 }
