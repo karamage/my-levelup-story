@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/ui/widgets/input_forms_view.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
 
 class AddItemScreen extends HookWidget {
@@ -15,7 +16,9 @@ class AddItemScreen extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
-      body: Container(child: Text("AddItemScreen")),
+      body: InputFormsView(
+        children: [],
+      ),
     );
   }
 
