@@ -50,13 +50,19 @@ class FirebaseDatasource implements RemoteDatasource {
   @override
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
     params = await _setFirebaseBasicParams(params);
-    return convertTimestamp(await _setDocument(ITEMS_PATH, params[ID_KEY], params));
+    return convertTimestamp(
+        await _setDocument(ITEMS_PATH, params[ID_KEY], params));
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate) async {
-    final q = await _getItemsQuery(userId, lastDate);
-    return (await q.get()).docs.map((doc) => convertTimestamp(doc.data())).toList();
+  Future<List<Map<String, dynamic>>> getItems(String userId,
+      DateTime lastDate) async {
+    return await _getJsons(_getItemsQuery(userId, lastDate));
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getOurItems(DateTime lastDate) async {
+    return await _getJsons(_getOurItemsQuery(lastDate));
   }
 
   // --- private method ---
@@ -64,6 +70,10 @@ class FirebaseDatasource implements RemoteDatasource {
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
   Future<DocumentSnapshot> _getUserDoc(uuid) => _getUserRef(uuid).get();
   Future<DocumentSnapshot> _getItemDoc(itemId) => _getItemRef(itemId).get();
+
+  Future<List<Map<String, dynamic>>> _getJsons(Query q) async =>
+      (await q.get()).docs.map((doc) => convertTimestamp(doc.data()))
+      .toList();
 
   Map<String, dynamic> convertTimestamp(Map<String, dynamic> json) {
     if (json["createdAt"] is Timestamp) {
@@ -102,17 +112,29 @@ class FirebaseDatasource implements RemoteDatasource {
     return (await doc.get()).data();
   }
 
-  Future<Query> _getItemsQuery(String userId, DateTime lastDate) async {
+  Query _getItemsQuery(String userId, DateTime lastDate) {
     DocumentReference userRef = _getUserRef(userId);
     Query query = _db.collection(ITEMS_PATH)
         .where("userRef", isEqualTo: userRef)
         .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate);
+  }
+
+  Query _getPagingQuery(Query q, DateTime lastDate) {
     if (lastDate != null) {
       final last = Timestamp.fromDate(lastDate);
-      query = query.startAfter([last]);
+      q = q.startAfter([last]);
     }
-    return query.limit(LIST_LIMIT);
+    return q.limit(LIST_LIMIT);
   }
+
+  Query _getOurItemsQuery(DateTime lastDate) {
+    Query query = _db.collection(ITEMS_PATH)
+        .where("isPublish", isEqualTo: true)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate);
+  }
+
 
   Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
     params[ID_KEY] = _getNewFirestoreId();
