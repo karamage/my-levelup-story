@@ -21,22 +21,34 @@ class AddItemScreen extends HookWidget {
     final titleController = useTextEditingController();
     final bodyController = useTextEditingController();
     final vm = useProvider(itemsProvider);
+    var isPublic = useState(false);
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
       body: InputFormsView(
         children: [
           _buildTitleForm(titleController),
           _buildBodyForm(bodyController),
-          _buildSubmitButton(vm, titleController, bodyController, context),
+          _buildPublic(isPublic),
+          _buildSubmitButton(vm, titleController, bodyController, context, isPublic),
         ],
       ),
     );
   }
 
-  _submit(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx) async {
+  Widget _buildPublic(ValueNotifier isPublic) {
+    return CheckboxListTile(
+      value: isPublic.value,
+      onChanged: (checked) =>
+        isPublic.value = checked,
+      title: Text('公開する'),
+    );
+  }
+
+  _submit(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx, ValueNotifier isPublic) async {
     final String title = titlec.text;
     final String body = bodyc.text;
     LoadingDialog.showLoading(ctx);
+    print("isPublic=${isPublic.value}");
     final addedItem = await vm.addItem(title, body);
     LoadingDialog.hideLoading(ctx);
     if (callback != null) callback(addedItem);
@@ -70,12 +82,12 @@ class AddItemScreen extends HookWidget {
     );
   }
 
-  Widget _buildSubmitButton(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx) {
+  Widget _buildSubmitButton(ItemsViewModel vm, TextEditingController titlec, TextEditingController bodyc, BuildContext ctx, ValueNotifier isPublic) {
     return RaisedButton(
       child: Text(buttonTitle()),
       color: Colors.blue,
       textColor: Colors.white,
-      onPressed: () => _submit(vm, titlec, bodyc, ctx),
+      onPressed: () => _submit(vm, titlec, bodyc, ctx, isPublic),
     );
   }
 }
