@@ -8,11 +8,11 @@ class ItemRepositoryImpl implements ItemRepository {
   ItemRepositoryImpl({@required RemoteDatasource ds}) : _ds = ds;
 
   @override
-  Future<Item> addItem(String title, String body) async {
+  Future<Item> addItem(String title, String body, bool isPublic) async {
     final params = Item.createParams(
         title: title,
         body: body,
-        isPublic: false, // TODO とりあえず
+        isPublic: isPublic,
     );
     return Item.fromJson(await _ds.addItem(params));
   }

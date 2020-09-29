@@ -48,8 +48,7 @@ class AddItemScreen extends HookWidget {
     final String title = titlec.text;
     final String body = bodyc.text;
     LoadingDialog.showLoading(ctx);
-    print("isPublic=${isPublic.value}");
-    final addedItem = await vm.addItem(title, body);
+    final addedItem = await vm.addItem(title, body, isPublic.value);
     LoadingDialog.hideLoading(ctx);
     if (callback != null) callback(addedItem);
     Navigator.pop(ctx);

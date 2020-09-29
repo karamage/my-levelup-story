@@ -64,6 +64,7 @@ class ItemCell extends StatelessWidget {
                   ],
                 ),
                 SpaceBox.height(8),
+                if (item.isPublic == true) Text("公開"),
                 Text(item.title, style: Theme.of(context).textTheme.title),
                 SpaceBox.height(4),
                 Text(item.body, style: Theme.of(context).textTheme.body1),
