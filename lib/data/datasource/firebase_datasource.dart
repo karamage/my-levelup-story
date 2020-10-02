@@ -130,7 +130,7 @@ class FirebaseDatasource implements RemoteDatasource {
 
   Query _getOurItemsQuery(DateTime lastDate) {
     Query query = _db.collection(ITEMS_PATH)
-        .where("isPublish", isEqualTo: true)
+        .where("isPublic", isEqualTo: true)
         .orderBy("createdAt", descending: true);
     return _getPagingQuery(query, lastDate);
   }
