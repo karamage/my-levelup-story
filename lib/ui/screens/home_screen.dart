@@ -15,7 +15,7 @@ class HomeScreen extends HookWidget {
     final state = useProvider(appStateProvider.state);
     final app = useProvider(appStateProvider);
     return Scaffold(
-      appBar: WhiteAppBar.build("My LevelUp Story"),
+      appBar: WhiteAppBar.build(BottomTabsFactory.headerTitle(state.selectedTabIndex)),
       body: new PageView(
         controller: pageController,
         onPageChanged: (int index) {
