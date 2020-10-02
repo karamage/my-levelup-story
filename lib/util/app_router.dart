@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_levelup_story/app.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/ui/screens/add_item_screen.dart';
 import 'package:my_levelup_story/ui/screens/main_screen.dart';
 
-class Router {
+class AppRouter {
   static const String mainRoute = '/';
   static const String addItemRoute = '/add_item';
 

@@ -5,7 +5,7 @@ import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/providers/app_state_provider.dart';
 import 'package:my_levelup_story/ui/widgets/bottom_tabs_factory.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
-import 'package:my_levelup_story/util/router.dart';
+import 'package:my_levelup_story/util/app_router.dart';
 
 // Note: CounterApp is a HookWidget, from flutter_hooks.
 class HomeScreen extends HookWidget {
@@ -40,7 +40,7 @@ class HomeScreen extends HookWidget {
     if (index != 0) return null;
     return FloatingActionButton(
       onPressed: () {
-        Navigator.pushNamed(context, Router.addItemRoute, arguments: [addedItemCallback]);
+        Navigator.pushNamed(context, AppRouter.addItemRoute, arguments: [addedItemCallback]);
       },
       child: Icon(Icons.add),
       //backgroundColor: Theme.of(context).primaryColor,
