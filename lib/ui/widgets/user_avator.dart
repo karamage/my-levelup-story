@@ -9,6 +9,6 @@ class UserAvator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TapableCircleImageAvator(id:user.id, name:user.nickname, imageUrl:user.imageUrl);
+    return TapableCircleImageAvator(id:user.id, name:user.nickname ?? "", imageUrl:user.imageUrl);
   }
 }
