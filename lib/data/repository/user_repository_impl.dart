@@ -8,6 +8,11 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({@required RemoteDatasource ds}) : _ds = ds;
 
   @override
+  Future<User> getUser(String id) async {
+    return User.fromJson(await _ds.getUser(id));
+  }
+
+  @override
   Future<User> addUser(String id, String nickname, String desc) async {
     final params = User.addUserParams(id: id, nickname: nickname, desc: desc);
     return User.fromJson(await _ds.addUser(params));

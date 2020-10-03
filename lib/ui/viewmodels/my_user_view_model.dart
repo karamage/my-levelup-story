@@ -8,6 +8,11 @@ class MyUserViewModel extends StateNotifier<User> {
   MyUserViewModel({@required UserRepository repository}) : _repository = repository, super(const User()) {}
   final UserRepository _repository;
 
+  Future<void> reload() async {
+    final myUserId = await LocalStorageManager.getMyUserId();
+    state = await _repository.getUser(myUserId);
+  }
+
   Future<User> addUser(String uuid, String nickname) async {
     state = await _repository.addUser(uuid, nickname, "");
     return state.copyWith();
