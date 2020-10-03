@@ -7,6 +7,7 @@ import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/input_forms_view.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
+import 'package:my_levelup_story/util/loading_dialog.dart';
 
 class SettingsScreen extends HookWidget {
   @override
@@ -36,6 +37,11 @@ class SettingsScreen extends HookWidget {
       TextEditingController nameController,
       TextEditingController descController
       ) async {
+    print("onSave start");
+    LoadingDialog.showLoading(context);
+    await myUserVM.updateUserSettings(nameController.text, descController.text);
+    LoadingDialog.hideLoading(context);
+    print("onSave end");
   }
 
   Widget _buildMyProfile(

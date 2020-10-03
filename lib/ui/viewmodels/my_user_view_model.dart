@@ -18,6 +18,12 @@ class MyUserViewModel extends StateNotifier<User> {
     return state.copyWith();
   }
 
+  Future<User> updateUserSettings(String nickname, String desc) async {
+    final myUserId = await LocalStorageManager.getMyUserId();
+    state = await _repository.updateUser(myUserId, nickname, desc);
+    return state.copyWith();
+  }
+
   Future<void> saveMyUser(User user) async {
     await LocalStorageManager.setMyUserId(user.id);
     await LocalStorageManager.setMyName(user.nickname);

@@ -30,6 +30,14 @@ abstract class User with _$User {
     return map;
   }
 
+  static Map<String, dynamic> updateUserParams({String id, String nickname, String desc}) {
+    Map<String, dynamic> map = Map();
+    map["id"] = id;
+    map["nickname"] = nickname;
+    map["desc"] = desc;
+    return map;
+  }
+
   // ItemのサブコレクションのUserに設定するパラメータ
   static Map<String, dynamic> getSubUserParams(User u) {
     Map<String, dynamic> map = Map();

@@ -17,4 +17,10 @@ class UserRepositoryImpl implements UserRepository {
     final params = User.addUserParams(id: id, nickname: nickname, desc: desc);
     return User.fromJson(await _ds.addUser(params));
   }
+
+  @override
+  Future<User> updateUser(String id, String nickname, String desc) async {
+    final params = User.updateUserParams(id: id, nickname: nickname, desc: desc);
+    return User.fromJson(await _ds.updateUser(params));
+  }
 }
