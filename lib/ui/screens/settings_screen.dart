@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/providers/my_user_provider.dart';
+import 'package:my_levelup_story/ui/viewmodels/my_user_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/input_forms_view.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
@@ -11,31 +12,44 @@ class SettingsScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final myUser = useProvider(myUserProvider.state);
+    final myUserVM = useProvider(myUserProvider);
+    final nameController = useTextEditingController();
+    final descController = useTextEditingController();
     return InputFormsView(
       children: [
-        _buildMyProfile(context, myUser),
+        _buildMyProfile(context, myUser, myUserVM, nameController, descController),
       ],
     );
   }
 
-  Widget _buildMyProfile(BuildContext context, User myUser) {
+  onSave(
+      BuildContext context,
+      MyUserViewModel myUserVM,
+      TextEditingController nameController,
+      TextEditingController descController
+      ) async {
+  }
+
+  Widget _buildMyProfile(
+      BuildContext context,
+      User myUser,
+      MyUserViewModel myUserVM,
+      TextEditingController nameController,
+      TextEditingController descController
+      ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Center(child: UserAvator(user: myUser)),
-        /*
         FlatButton(
           child: Text("アイコン設定"),
-          onPressed: () => onClickUploadUserImage(context),
-          //color: Theme.of(context).primaryColor,
-          //textColor: Colors.white,
+          onPressed: () {
+            print("onPressed icon setting.");
+          },
           textColor: Theme.of(context).primaryColor,
         ),
-
-        */
         Divider(),
-        SpaceBox(height: 16.0),
-        /*
+        //SpaceBox(height: 16.0),
         TextField(
           controller: nameController,
           maxLength: 16,
@@ -46,10 +60,7 @@ class SettingsScreen extends HookWidget {
         ),
         TextField(
           controller: descController,
-          //maxLines: 2,
           maxLength: 80,
-          //keyboardType: TextInputType.multiline,
-          //textInputAction: TextInputAction.newline,
           decoration: InputDecoration(
               labelText: "自己紹介",
               hintText: "自己紹介を入力してください"
@@ -57,11 +68,10 @@ class SettingsScreen extends HookWidget {
         ),
         RaisedButton(
           child: Text("保存する"),
-          onPressed: () => onClick(context),
+          onPressed: () => onSave(context, myUserVM, nameController, descController),
           color: Theme.of(context).primaryColor,
           textColor: Colors.white,
         ),
-        */
       ],
     );
   }
