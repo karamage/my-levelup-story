@@ -9,6 +9,7 @@ class MyUserViewModel extends StateNotifier<User> {
   final UserRepository _repository;
 
   Future<void> reload() async {
+    print("MyUserViewModel reload");
     final myUserId = await LocalStorageManager.getMyUserId();
     state = await _repository.getUser(myUserId);
   }

@@ -15,6 +15,14 @@ class SettingsScreen extends HookWidget {
     final myUserVM = useProvider(myUserProvider);
     final nameController = useTextEditingController();
     final descController = useTextEditingController();
+    nameController.text = myUser?.nickname ?? "";
+    descController.text = myUser?.desc ?? "";
+    useEffect((){
+      () async {
+        await myUserVM.reload();
+      }();
+      return null;
+    }, []);
     return InputFormsView(
       children: [
         _buildMyProfile(context, myUser, myUserVM, nameController, descController),
