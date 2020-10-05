@@ -81,6 +81,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return await _getJsons(_getOurItemsQuery(lastDate));
   }
 
+  @override
+  Future<List<Map<String, dynamic>>> getProfileItems(String userId, DateTime lastDate) async {
+    return await _getJsons(_getProfileItemsQuery(userId, lastDate));
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
