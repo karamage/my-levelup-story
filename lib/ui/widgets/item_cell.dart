@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_levelup_story/data/models/category_type.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
+import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
@@ -43,7 +44,7 @@ class ItemCell extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SpaceBox.width(16),
-        //UserAvator(nickname: item.user.nickname, imageUrl: item.user.imageUrl, user: item.user),
+        UserAvator(user: item.user),
         SpaceBox.width(16),
         Expanded(
           child: GestureDetector(
@@ -68,6 +69,7 @@ class ItemCell extends StatelessWidget {
                 Text(item.title, style: Theme.of(context).textTheme.title),
                 SpaceBox.height(4),
                 Text(item.body, style: Theme.of(context).textTheme.body1),
+                /*
                 SpaceBox.height(8),
                 item.category == CategoryType.none ?
                 Container() :
@@ -76,13 +78,12 @@ class ItemCell extends StatelessWidget {
                     border: Border.all(color: Theme.of(context).primaryColor),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  /*
                   child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 3.0),
                       child: Text('${HandleEnum.categoryTypeLabel(item.category)}',  style: TextStyle(color: Theme.of(context).primaryColor))
                   ),
-                  */
                 )
+                */
               ],
             ),
           ),
