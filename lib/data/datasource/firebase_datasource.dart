@@ -137,10 +137,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   Query _getPagingQuery(Query q, DateTime lastDate) {
-    if (lastDate != null) {
-      final last = Timestamp.fromDate(lastDate);
-      q = q.startAfter([last]);
-    }
+    q = lastDate != null ? q.startAfter([Timestamp.fromDate(lastDate)]) : q;
     return q.limit(LIST_LIMIT);
   }
 
