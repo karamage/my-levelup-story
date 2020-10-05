@@ -81,6 +81,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return await _getJsons(_getOurItemsQuery(lastDate));
   }
 
+  @override
+  Future<List<Map<String, dynamic>>> getProfileItems(String userId, DateTime lastDate) async {
+    return await _getJsons(_getProfileItemsQuery(userId, lastDate));
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
@@ -137,10 +142,7 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   Query _getPagingQuery(Query q, DateTime lastDate) {
-    if (lastDate != null) {
-      final last = Timestamp.fromDate(lastDate);
-      q = q.startAfter([last]);
-    }
+    q = lastDate != null ? q.startAfter([Timestamp.fromDate(lastDate)]) : q;
     return q.limit(LIST_LIMIT);
   }
 
@@ -151,6 +153,14 @@ class FirebaseDatasource implements RemoteDatasource {
     return _getPagingQuery(query, lastDate);
   }
 
+  Query _getProfileItemsQuery(String userId, DateTime lastDate) {
+    DocumentReference userRef = _getUserRef(userId);
+    Query query = _db.collection(ITEMS_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .where("isPublic", isEqualTo: true)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate);
+  }
 
   Map<String, dynamic> _setIdParam(Map<String, dynamic> params) {
     params[ID_KEY] = _getNewFirestoreId();

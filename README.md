@@ -30,5 +30,6 @@ Some of the things you'll learn include.
 * How to use Hooks (useProvider, useMemorize, useFuture)
 * Immutable state using freezed
 * How to use Firestore
+* Riverpod modifier. ".family", ".autoDispose"
 
 Thank you for reading.

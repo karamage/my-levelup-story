@@ -1,6 +1,4 @@
-
 abstract class RemoteDatasource {
-  //get ID_KEY;
   initializeApp();
   Future<Map<String, dynamic>> signInAnonymously();
   Future<Map<String, dynamic>> getUser(String userId);
@@ -9,4 +7,5 @@ abstract class RemoteDatasource {
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params);
   Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate);
   Future<List<Map<String, dynamic>>> getOurItems(DateTime lastDate);
+  Future<List<Map<String, dynamic>>> getProfileItems(String userId, DateTime lastDate);
 }

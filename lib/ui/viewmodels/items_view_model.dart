@@ -25,7 +25,7 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<void> reload() async {
-    print("ItemsViewModel reload() start");
+    print("ItemsViewModel reload() start userId=${_userId}");
     _clear();
     final list = await _getItems();
     if (list.length > 0) _lastItem = list.last;
