@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final userId;
+  ProfileScreen({@required this.userId});
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      //appBar: AppBar(title: Text('MyLevelUpStory app')),
-      body: Center(
+    print("ProfileScreen userId=$userId");
+    return Scaffold(
+      appBar: WhiteAppBar.build("プロフィール"),
+      body: const Center(
         child: Text("profile"),
       ),
     );

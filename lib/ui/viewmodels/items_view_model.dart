@@ -25,11 +25,13 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<void> reload() async {
+    print("ItemsViewModel reload() start");
     _clear();
     final list = await _getItems();
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: list, isLoading: false);
+    print("ItemsViewModel reload() end");
   }
 
   Future<void> next() async {

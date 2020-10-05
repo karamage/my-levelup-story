@@ -3,14 +3,17 @@ import 'package:my_levelup_story/data/models/category_type.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
+import 'package:my_levelup_story/util/app_router.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
-
   ItemCell({@required this.item});
+
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
+    _context ??= context;
     return Padding(
       key: ValueKey(item.id),
       padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
@@ -39,12 +42,17 @@ class ItemCell extends StatelessWidget {
       ],
     );
   }
+
+  onTapUserAvator(String id) {
+    Navigator.pushNamed(_context, AppRouter.profileRoute, arguments: [id]);
+  }
+
   Widget _buildMainContents(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SpaceBox.width(16),
-        UserAvator(user: item.user),
+        UserAvator(user: item.user, onTap: onTapUserAvator),
         SpaceBox.width(16),
         Expanded(
           child: GestureDetector(
