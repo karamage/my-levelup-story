@@ -23,6 +23,7 @@ class ProfileScreen extends HookWidget {
     return Scaffold(
       appBar: WhiteAppBar.build("プロフィール"),
       body: EasyListView(
+        header: Container(child: Text("Header")),
         items: state.items,
         onRefresh: vm.onRefresh,
         onNext: vm.next,

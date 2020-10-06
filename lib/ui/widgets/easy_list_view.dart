@@ -52,15 +52,10 @@ class EasyListView<T> extends HookWidget {
     final cells = buildCells(items);
     return ListView.builder(
       controller: sc,
-      padding: const EdgeInsets.only(top: 20.0),
       scrollDirection: Axis.vertical,
       itemCount: items.length + 1,                          //new
       itemBuilder: (_, int index) {
-        if (index == 0) {
-          return header;
-        } else {
-          return cells[index - 1];
-        }
+        return index == 0 ? header : cells[index - 1];
       },
     );
   }
