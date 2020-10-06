@@ -8,8 +8,9 @@ class EasyListView<T> extends HookWidget {
   final List<Widget> Function(List<T> items) buildCells;
   final isLoading;
   final Widget loading;
+  final Widget header;
 
-  EasyListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells, this.isLoading, this.loading});
+  EasyListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells, this.isLoading, this.loading, this.header});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class EasyListView<T> extends HookWidget {
       children: [
         if (_isShowLoading()) loading,
         Flexible(
-          child: _buildList(sc)
+          child: _buildRefreshList(sc)
         ),
         if (_isShowLoading()) loading,
       ],
@@ -31,15 +32,36 @@ class EasyListView<T> extends HookWidget {
 
   _isShowLoading() => items.length == 0 && isLoading == true && loading != null;
 
-  Widget _buildList(ScrollController sc) {
+  Widget _buildRefreshList(ScrollController sc) {
     return RefreshIndicator(
-        onRefresh: onRefresh,
-        child:ListView(
-          controller: sc,
-          padding: const EdgeInsets.only(top: 20.0),
-          scrollDirection: Axis.vertical,
-          children: buildCells(items),
-        )
+      onRefresh: onRefresh,
+      child: header != null ? _buildHeaderListView(sc) : _buildListView(sc),
+    );
+  }
+
+  Widget _buildListView(ScrollController sc) {
+    return ListView(
+      controller: sc,
+      padding: const EdgeInsets.only(top: 20.0),
+      scrollDirection: Axis.vertical,
+      children: buildCells(items),
+    );
+  }
+
+  Widget _buildHeaderListView(ScrollController sc) {
+    final cells = buildCells(items);
+    return ListView.builder(
+      controller: sc,
+      padding: const EdgeInsets.only(top: 20.0),
+      scrollDirection: Axis.vertical,
+      itemCount: items.length + 1,                          //new
+      itemBuilder: (_, int index) {
+        if (index == 0) {
+          return header;
+        } else {
+          return cells[index - 1];
+        }
+      },
     );
   }
 
