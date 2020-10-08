@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/providers/profile_items_provider.dart';
+import 'package:my_levelup_story/data/providers/user_provider.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
@@ -13,17 +14,19 @@ class ProfileScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ProfileScreen userId=$userId");
     final state = useProvider(profileItemsProvider(userId).state);
     final vm = useProvider(profileItemsProvider(userId));
+    final userState = useProvider(userProvider(userId).state);
+    final userVM = useProvider(userProvider(userId));
     useEffect((){
       vm.reload();
+      userVM.reload();
       return null;
     }, []);
     return Scaffold(
       appBar: WhiteAppBar.build("プロフィール"),
       body: EasyListView(
-        header: Container(child: Text("Header")),
+        header: Container(child: Text("${userState.nickname ?? ""}")),
         items: state.items,
         onRefresh: vm.onRefresh,
         onNext: vm.next,
