@@ -24,30 +24,46 @@ class ItemCell extends StatelessWidget {
           ),
           //borderRadius: BorderRadius.circular(5.0),
         ),
-        child: _buildContents(context),
+        child: buildContents(context),
       ),
     );
   }
 
-  Widget _buildContents(BuildContext context) {
+  Widget buildContents(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //_buildHeaderContents(context),
+        //buildHeaderContents(context),
         //SpaceBox.height(8),
-        _buildMainContents(context),
-        //_buildImageContents(context),
-        //_buildCommentContents(context),
-        //_buildButtonContents(context),
+        buildMainContents(context),
+        buildImageContents(context),
+        buildCommentContents(context),
+        buildButtonContents(context),
       ],
     );
+  }
+
+  Widget buildHeaderContents(BuildContext context) {
+    return Container();
+  }
+
+  Widget buildImageContents(BuildContext context) {
+    return Container();
+  }
+
+  Widget buildCommentContents(BuildContext context) {
+    return Container();
+  }
+
+  Widget buildButtonContents(BuildContext context) {
+    return Container();
   }
 
   onTapUserAvator(String id) {
     Navigator.pushNamed(_context, AppRouter.profileRoute, arguments: [id]);
   }
 
-  Widget _buildMainContents(BuildContext context) {
+  Widget buildMainContents(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
