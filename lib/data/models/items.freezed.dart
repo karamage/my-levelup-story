@@ -12,6 +12,7 @@ Items _$ItemsFromJson(Map<String, dynamic> json) {
   return _Items.fromJson(json);
 }
 
+/// @nodoc
 class _$ItemsTearOff {
   const _$ItemsTearOff();
 
@@ -22,11 +23,18 @@ class _$ItemsTearOff {
       isLoading: isLoading,
     );
   }
+
+// ignore: unused_element
+  Items fromJson(Map<String, Object> json) {
+    return Items.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Items = _$ItemsTearOff();
 
+/// @nodoc
 mixin _$Items {
   List<Item> get items;
   bool get isLoading;
@@ -35,12 +43,14 @@ mixin _$Items {
   $ItemsCopyWith<Items> get copyWith;
 }
 
+/// @nodoc
 abstract class $ItemsCopyWith<$Res> {
   factory $ItemsCopyWith(Items value, $Res Function(Items) then) =
       _$ItemsCopyWithImpl<$Res>;
   $Res call({List<Item> items, bool isLoading});
 }
 
+/// @nodoc
 class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
   _$ItemsCopyWithImpl(this._value, this._then);
 
@@ -60,6 +70,7 @@ class _$ItemsCopyWithImpl<$Res> implements $ItemsCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
   factory _$ItemsCopyWith(_Items value, $Res Function(_Items) then) =
       __$ItemsCopyWithImpl<$Res>;
@@ -67,6 +78,7 @@ abstract class _$ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
   $Res call({List<Item> items, bool isLoading});
 }
 
+/// @nodoc
 class __$ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
     implements _$ItemsCopyWith<$Res> {
   __$ItemsCopyWithImpl(_Items _value, $Res Function(_Items) _then)
@@ -88,6 +100,8 @@ class __$ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Items implements _Items {
   const _$_Items({this.items = const [], this.isLoading = true})
       : assert(items != null),

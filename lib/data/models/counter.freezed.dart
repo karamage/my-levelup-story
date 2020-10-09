@@ -12,6 +12,7 @@ Counter _$CounterFromJson(Map<String, dynamic> json) {
   return _Counter.fromJson(json);
 }
 
+/// @nodoc
 class _$CounterTearOff {
   const _$CounterTearOff();
 
@@ -21,11 +22,18 @@ class _$CounterTearOff {
       counter: counter,
     );
   }
+
+// ignore: unused_element
+  Counter fromJson(Map<String, Object> json) {
+    return Counter.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Counter = _$CounterTearOff();
 
+/// @nodoc
 mixin _$Counter {
   int get counter;
 
@@ -33,12 +41,14 @@ mixin _$Counter {
   $CounterCopyWith<Counter> get copyWith;
 }
 
+/// @nodoc
 abstract class $CounterCopyWith<$Res> {
   factory $CounterCopyWith(Counter value, $Res Function(Counter) then) =
       _$CounterCopyWithImpl<$Res>;
   $Res call({int counter});
 }
 
+/// @nodoc
 class _$CounterCopyWithImpl<$Res> implements $CounterCopyWith<$Res> {
   _$CounterCopyWithImpl(this._value, this._then);
 
@@ -56,6 +66,7 @@ class _$CounterCopyWithImpl<$Res> implements $CounterCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$CounterCopyWith<$Res> implements $CounterCopyWith<$Res> {
   factory _$CounterCopyWith(_Counter value, $Res Function(_Counter) then) =
       __$CounterCopyWithImpl<$Res>;
@@ -63,6 +74,7 @@ abstract class _$CounterCopyWith<$Res> implements $CounterCopyWith<$Res> {
   $Res call({int counter});
 }
 
+/// @nodoc
 class __$CounterCopyWithImpl<$Res> extends _$CounterCopyWithImpl<$Res>
     implements _$CounterCopyWith<$Res> {
   __$CounterCopyWithImpl(_Counter _value, $Res Function(_Counter) _then)
@@ -82,6 +94,8 @@ class __$CounterCopyWithImpl<$Res> extends _$CounterCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Counter with DiagnosticableTreeMixin implements _Counter {
   const _$_Counter({this.counter = 0}) : assert(counter != null);
 

@@ -12,6 +12,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return _AppState.fromJson(json);
 }
 
+/// @nodoc
 class _$AppStateTearOff {
   const _$AppStateTearOff();
 
@@ -22,11 +23,18 @@ class _$AppStateTearOff {
       selectedTabIndex: selectedTabIndex,
     );
   }
+
+// ignore: unused_element
+  AppState fromJson(Map<String, Object> json) {
+    return AppState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $AppState = _$AppStateTearOff();
 
+/// @nodoc
 mixin _$AppState {
   AppStateType get stateType;
   int get selectedTabIndex;
@@ -35,12 +43,14 @@ mixin _$AppState {
   $AppStateCopyWith<AppState> get copyWith;
 }
 
+/// @nodoc
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res>;
   $Res call({AppStateType stateType, int selectedTabIndex});
 }
 
+/// @nodoc
 class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   _$AppStateCopyWithImpl(this._value, this._then);
 
@@ -63,6 +73,7 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) then) =
       __$AppStateCopyWithImpl<$Res>;
@@ -70,6 +81,7 @@ abstract class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   $Res call({AppStateType stateType, int selectedTabIndex});
 }
 
+/// @nodoc
 class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
     implements _$AppStateCopyWith<$Res> {
   __$AppStateCopyWithImpl(_AppState _value, $Res Function(_AppState) _then)
@@ -94,6 +106,8 @@ class __$AppStateCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_AppState implements _AppState {
   const _$_AppState({this.stateType, this.selectedTabIndex = 0})
       : assert(selectedTabIndex != null);

@@ -12,6 +12,7 @@ Auth _$AuthFromJson(Map<String, dynamic> json) {
   return _Auth.fromJson(json);
 }
 
+/// @nodoc
 class _$AuthTearOff {
   const _$AuthTearOff();
 
@@ -21,11 +22,18 @@ class _$AuthTearOff {
       isLogined: isLogined,
     );
   }
+
+// ignore: unused_element
+  Auth fromJson(Map<String, Object> json) {
+    return Auth.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Auth = _$AuthTearOff();
 
+/// @nodoc
 mixin _$Auth {
   bool get isLogined;
 
@@ -33,12 +41,14 @@ mixin _$Auth {
   $AuthCopyWith<Auth> get copyWith;
 }
 
+/// @nodoc
 abstract class $AuthCopyWith<$Res> {
   factory $AuthCopyWith(Auth value, $Res Function(Auth) then) =
       _$AuthCopyWithImpl<$Res>;
   $Res call({bool isLogined});
 }
 
+/// @nodoc
 class _$AuthCopyWithImpl<$Res> implements $AuthCopyWith<$Res> {
   _$AuthCopyWithImpl(this._value, this._then);
 
@@ -56,6 +66,7 @@ class _$AuthCopyWithImpl<$Res> implements $AuthCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$AuthCopyWith<$Res> implements $AuthCopyWith<$Res> {
   factory _$AuthCopyWith(_Auth value, $Res Function(_Auth) then) =
       __$AuthCopyWithImpl<$Res>;
@@ -63,6 +74,7 @@ abstract class _$AuthCopyWith<$Res> implements $AuthCopyWith<$Res> {
   $Res call({bool isLogined});
 }
 
+/// @nodoc
 class __$AuthCopyWithImpl<$Res> extends _$AuthCopyWithImpl<$Res>
     implements _$AuthCopyWith<$Res> {
   __$AuthCopyWithImpl(_Auth _value, $Res Function(_Auth) _then)
@@ -82,6 +94,8 @@ class __$AuthCopyWithImpl<$Res> extends _$AuthCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Auth implements _Auth {
   const _$_Auth({this.isLogined});
 
