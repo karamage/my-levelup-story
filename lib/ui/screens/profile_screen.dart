@@ -7,6 +7,8 @@ import 'package:my_levelup_story/data/providers/user_provider.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
+import 'package:my_levelup_story/ui/widgets/space_box.dart';
+import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
 
 class ProfileScreen extends HookWidget {
@@ -39,6 +41,54 @@ class ProfileScreen extends HookWidget {
   }
 
   Widget _buildHeader(BuildContext ctx, User user) {
-    return Container(child: Text("${user.nickname ?? ""}"));
+    //return Container(child: Text("${user.nickname ?? ""}"));
+    return Column(                                        //modified
+        children: <Widget>[                                         //new
+          Material(
+            color: Color.fromRGBO(255, 255, 255, 1.0),
+            elevation: 4.0,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      child: UserAvator(user: user),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 16.0),
+                            child: Text(user.nickname ?? "", style: Theme.of(ctx).textTheme.subhead),
+                          ),
+                          SpaceBox(height: 8.0),
+                          Padding(
+                            padding: EdgeInsets.only(right: 16.0),
+                            child: Text("${user.desc ?? ""}"),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                SpaceBox(height: 8.0),
+                /*
+                Text("癒やしポイント ${totalPoint}pt"),
+                SpaceBox(height: 8.0),
+                Text("いいね！されてる数 ${totalLikedCount}いいね！"),
+                SpaceBox(height: 8.0),
+                //SpaceBox(height: 16.0),
+                Divider(height: 1.0),                                 //new
+                */
+                Container(
+                  child: Text("公開している成長", style: Theme.of(ctx).textTheme.caption),
+                ),
+                Divider(height: 1.0),                                 //new
+              ],
+            ),
+          ),
+        ]);
   }
 }
