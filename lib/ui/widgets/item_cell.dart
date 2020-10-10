@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:my_levelup_story/data/models/category_type.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/ui/widgets/like_button.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 import 'package:my_levelup_story/util/app_router.dart';
 
 class ItemCell extends StatelessWidget {
   final Item item;
-  ItemCell({@required this.item});
+  final String myUserId;
+  final Future<void> Function(String itemId) tapLike;
+  ItemCell({
+    @required this.item,
+    @required this.myUserId,
+    @required this.tapLike,
+  }) {
+    assert(item != null);
+    assert(myUserId != null);
+    assert(tapLike != null);
+  }
 
   BuildContext _context;
+
+  bool isLiked(String userId) => item?.likedUserIds?.contains(userId) ?? false;
+  bool isMyLiked() => isLiked(myUserId);
+  bool isMyItem() => item?.user?.id == myUserId;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +70,33 @@ class ItemCell extends StatelessWidget {
   }
 
   Widget buildButtonContents(BuildContext context) {
-    return Container();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          /*
+          Expanded(
+            child: CommentButton(item:item),
+          ),
+          */
+          Expanded(
+            child: LikeButton(
+                isLiked: isMyLiked(),
+                likeCount: item.likeCount,
+                itemId: item.id,
+                tapLike: tapLike
+            ),
+          ),
+          /*
+          itemsModel.isOur || !item.isMyItem() ? Container()
+              : Expanded(child: ItemEditButton(item: item, completedEditItem: completedEditItem)),
+          itemsModel.isOur || !item.isMyItem() ? Container()
+              : Expanded(child: ItemDeleteButton(item: item, completedDeleteItem: completedDeleteItem)),
+          */
+        ],
+      ),
+    );
   }
 
   onTapUserAvator(String id) {

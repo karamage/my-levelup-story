@@ -3,7 +3,15 @@ import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 
 class OurItemCell extends ItemCell {
-  OurItemCell({@required item}): super(item: item);
+  OurItemCell({
+    @required item,
+    @required myUserId,
+    @required tapLike,
+  }): super(
+      item: item,
+      myUserId: myUserId,
+      tapLike: tapLike
+  );
 
   @override
   Widget buildContents(BuildContext context) {

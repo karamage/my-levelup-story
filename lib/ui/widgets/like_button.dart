@@ -26,7 +26,7 @@ class LikeButton extends StatelessWidget {
         ),
         label: Text("${likeCount > 0 ? likeCount:""}"),
         onPressed: isLiked ? null : () {
-          tapLike(itemId);
+          if (tapLike != null) tapLike(itemId);
         },
         color: Colors.white,
         textColor: Theme.of(context).primaryColor,
