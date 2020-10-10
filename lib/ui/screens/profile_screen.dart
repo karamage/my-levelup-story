@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_levelup_story/data/models/user.dart';
+import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/data/providers/profile_items_provider.dart';
 import 'package:my_levelup_story/data/providers/user_provider.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
@@ -21,9 +22,12 @@ class ProfileScreen extends HookWidget {
     final vm = useProvider(profileItemsProvider(userId));
     final userState = useProvider(userProvider(userId).state);
     final userVM = useProvider(userProvider(userId));
+    final myUserState = useProvider(myUserProvider.state);
+    final myUserVM = useProvider(myUserProvider);
     useEffect((){
       vm.reload();
       userVM.reload();
+      myUserVM.loadMyUser();
       return null;
     }, []);
     return Scaffold(
@@ -33,11 +37,22 @@ class ProfileScreen extends HookWidget {
         items: state.items,
         onRefresh: vm.onRefresh,
         onNext: vm.next,
-        buildCells: (items) => items.map((item) => ItemCell(item: item)).toList(),
+        buildCells: (items) =>
+            items.map((item) =>
+                ItemCell(
+                  item: item,
+                  myUserId: myUserState.id,
+                  tapLike: tapLike,
+                )
+            ).toList(),
         isLoading: state.isLoading,
         loading: LoadingIndicator(),
       ),
     );
+  }
+
+  Future<void> tapLike(String itemId) {
+    print("tapLike");
   }
 
   Widget _buildHeader(BuildContext ctx, User user) {
