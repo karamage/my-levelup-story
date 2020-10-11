@@ -56,7 +56,6 @@ class ProfileScreen extends HookWidget {
   }
 
   Widget _buildHeader(BuildContext ctx, User user) {
-    //return Container(child: Text("${user.nickname ?? ""}"));
     return Column(                                        //modified
         children: <Widget>[                                         //new
           Material(
