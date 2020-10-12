@@ -24,14 +24,14 @@ class HomeScreen extends HookWidget {
         children: BottomTabsFactory.getPages(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // for item 3 over.
+        //type: BottomNavigationBarType.fixed, // for item 3 over.
         onTap: (int index) { // define animation
           pageController.animateToPage(index,
               duration: const Duration(milliseconds: 10), curve: Curves.ease);
         },
         currentIndex: state.selectedTabIndex,
-        //selectedItemColor: Theme.of(context).primaryColor,
-        //unselectedItemColor: Color(0xffcccccc),
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Color(0xffcccccc),
         items: BottomTabsFactory.getTabItems(),
       ),
       floatingActionButton: _buildFab(context, state.selectedTabIndex),
