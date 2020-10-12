@@ -9,15 +9,15 @@ part of 'item.dart';
 _$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
   return _$_Item(
     id: json['id'] as String,
-    title: json['title'] as String,
-    body: json['body'] as String,
-    likeCount: json['likeCount'] as int,
-    starCount: json['starCount'] as int,
-    commentCount: json['commentCount'] as int,
-    isPublic: json['isPublic'] as bool,
+    title: json['title'] as String ?? '',
+    body: json['body'] as String ?? '',
+    likeCount: json['likeCount'] as int ?? 0,
+    starCount: json['starCount'] as int ?? 0,
+    commentCount: json['commentCount'] as int ?? 0,
+    isPublic: json['isPublic'] as bool ?? false,
     category: _$enumDecodeNullable(_$CategoryTypeEnumMap, json['category']),
     likedUserIds:
-        (json['likedUserIds'] as List)?.map((e) => e as String)?.toList(),
+        (json['likedUserIds'] as List)?.map((e) => e as String)?.toList() ?? [],
     user: json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>),

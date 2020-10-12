@@ -19,14 +19,14 @@ class _$ItemTearOff {
 // ignore: unused_element
   _Item call(
       {String id,
-      String title,
-      String body,
-      int likeCount,
-      int starCount,
-      int commentCount,
-      bool isPublic,
+      String title = '',
+      String body = '',
+      int likeCount = 0,
+      int starCount = 0,
+      int commentCount = 0,
+      bool isPublic = false,
       CategoryType category,
-      List<String> likedUserIds,
+      List<String> likedUserIds = const [],
       User user,
       DateTime createdAt,
       DateTime updatedAt}) {
@@ -228,37 +228,51 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 class _$_Item implements _Item {
   const _$_Item(
       {this.id,
-      this.title,
-      this.body,
-      this.likeCount,
-      this.starCount,
-      this.commentCount,
-      this.isPublic,
+      this.title = '',
+      this.body = '',
+      this.likeCount = 0,
+      this.starCount = 0,
+      this.commentCount = 0,
+      this.isPublic = false,
       this.category,
-      this.likedUserIds,
+      this.likedUserIds = const [],
       this.user,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt})
+      : assert(title != null),
+        assert(body != null),
+        assert(likeCount != null),
+        assert(starCount != null),
+        assert(commentCount != null),
+        assert(isPublic != null),
+        assert(likedUserIds != null);
 
   factory _$_Item.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemFromJson(json);
 
   @override
   final String id;
+  @JsonKey(defaultValue: '')
   @override
   final String title;
+  @JsonKey(defaultValue: '')
   @override
   final String body;
+  @JsonKey(defaultValue: 0)
   @override
   final int likeCount;
+  @JsonKey(defaultValue: 0)
   @override
   final int starCount;
+  @JsonKey(defaultValue: 0)
   @override
   final int commentCount;
+  @JsonKey(defaultValue: false)
   @override
   final bool isPublic;
   @override
   final CategoryType category;
+  @JsonKey(defaultValue: const [])
   @override
   final List<String> likedUserIds;
   @override

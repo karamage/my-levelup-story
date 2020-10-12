@@ -49,6 +49,28 @@ class ItemsViewModel extends StateNotifier<Items> {
     return item;
   }
 
+  Future<void> addLike(String itemId) async {
+    // awaitせずにlikeする
+    //_api.addLike(itemId);
+
+    //お知らせを作成する
+    //notificationsModel.addLikeNotification(likedItem);
+
+    // userのtotalLikedCountをカウントアップ
+    //_api.updateUserTotalLikedCount(1, likedItem.user.id);
+
+    var _items = [...state.items];
+    final index = _items.indexWhere((item) => item.id == itemId);
+    if (index > -1) {
+      Item item = _items[index];
+      item = item.copyWith(likeCount: item.likeCount + 1);
+      item.likedUserIds.add(await LocalStorageManager.getMyUserId());
+      _items.removeAt(index);
+      _items.insert(index, item);
+      state = state.copyWith(items: _items);
+    }
+  }
+
   // Itemの取得場所を切り替える際はrepositoryの実装をDIで切り替えるようにする
   Future<List<Item>> _getItems() async {
     _userId ??= await LocalStorageManager.getMyUserId();
