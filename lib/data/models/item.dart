@@ -50,4 +50,13 @@ abstract class Item with _$Item{
     }
     return map;
   }
+
+  static Map<String, dynamic> createAddLikeParams(String itemId, int likeCount, List<String> likedUserIds) {
+    Map<String, dynamic> map = Map();
+    map["id"] = itemId;
+    map["likeCount"] = likeCount;
+    map["likedUserIds"] = likedUserIds;
+    return map;
+  }
+
 }

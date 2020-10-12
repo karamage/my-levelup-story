@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:my_levelup_story/data/datasource/remote_datasource.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/repository/item_repository.dart';
+import 'package:my_levelup_story/util/local_storage_manager.dart';
 
 class ItemRepositoryImpl implements ItemRepository {
   final RemoteDatasource _ds;
@@ -15,6 +16,13 @@ class ItemRepositoryImpl implements ItemRepository {
         isPublic: isPublic,
     );
     return Item.fromJson(await _ds.addItem(params));
+  }
+
+  @override
+  Future<void> addLike(String itemId) async {
+    final item = Item.fromJson(await _ds.getItem(itemId));
+    item.likedUserIds.add(await LocalStorageManager.getMyUserId());
+    await _ds.updateItem(Item.createAddLikeParams(itemId, item.likeCount + 1, item.likedUserIds));
   }
 
   @override

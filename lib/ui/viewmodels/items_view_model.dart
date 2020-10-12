@@ -51,7 +51,7 @@ class ItemsViewModel extends StateNotifier<Items> {
 
   Future<void> addLike(String itemId) async {
     // awaitせずにlikeする
-    //_api.addLike(itemId);
+    _repository.addLike(itemId);
 
     //お知らせを作成する
     //notificationsModel.addLikeNotification(likedItem);
