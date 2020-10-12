@@ -21,7 +21,7 @@ class EasyListView<T> extends HookWidget {
     }, []);
     return Column(
       children: [
-        if (_isShowLoading()) loading,
+        //if (_isShowLoading()) loading,
         Flexible(
           child: _buildRefreshList(sc)
         ),
@@ -30,7 +30,7 @@ class EasyListView<T> extends HookWidget {
     );
   }
 
-  _isShowLoading() => items.length == 0 && isLoading == true && loading != null;
+  _isShowLoading() => /*items.length == 0 &&*/ isLoading == true && loading != null;
 
   Widget _buildRefreshList(ScrollController sc) {
     return RefreshIndicator(
