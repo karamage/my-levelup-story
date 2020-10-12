@@ -8,7 +8,7 @@ import 'package:my_levelup_story/util/local_storage_manager.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class ItemsViewModel extends StateNotifier<Items> {
-  ItemsViewModel({@required ItemRepository repository, String userId}) : _repository = repository, _userId = userId, super(const Items()) {
+  ItemsViewModel(ItemRepository repository, [String userId]) : _repository = repository, _userId = userId, super(const Items()) {
     () async {
       _userId ??= await LocalStorageManager.getMyUserId();
     }();
