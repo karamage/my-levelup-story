@@ -25,6 +25,19 @@
           "mode": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionId": "notifications",
+      "fields": [
+        {
+          "fieldPath": "userRef",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "mode": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []

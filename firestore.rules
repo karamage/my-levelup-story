@@ -36,5 +36,10 @@ service cloud.firestore {
       allow update, delete: if isMyItem();
       allow get, read, update: if isMyItem() || isPublicItem();
     }
+
+    match /notifications/{itemId} {
+      allow create, get: if isAuthenticated();
+      allow update, read, delete: if isMyItem();
+    }
   }
 }
