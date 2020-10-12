@@ -6,16 +6,14 @@ import 'package:my_levelup_story/data/models/user.dart' as luser;
 import 'package:my_levelup_story/util/constants.dart';
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 
+const USERS_PATH = "users";
+const ITEMS_PATH = "items";
+const NOTIFICATIONS_PATH = "notifications";
+
 class FirebaseDatasource implements RemoteDatasource {
   // 外部からauthやFirestore触らせないようにする(Firebase依存をなくすため)
   FirebaseFirestore _db;
   FirebaseAuth _auth;
-
-  //@override
-  //final ID_KEY = "id";
-
-  final USERS_PATH = "users";
-  final ITEMS_PATH = "items";
 
   @override
   initializeApp() async {
@@ -96,6 +94,11 @@ class FirebaseDatasource implements RemoteDatasource {
     return await _getJsons(_getProfileItemsQuery(userId, lastDate));
   }
 
+  @override
+  Future<List<Map<String, dynamic>>> getNotifications(String userId, DateTime lastDate) async {
+    return await _getJsons(_getNotificationsQuery(userId, lastDate));
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
@@ -149,6 +152,14 @@ class FirebaseDatasource implements RemoteDatasource {
   Query _getItemsQuery(String userId, DateTime lastDate) {
     DocumentReference userRef = _getUserRef(userId);
     Query query = _db.collection(ITEMS_PATH)
+        .where("userRef", isEqualTo: userRef)
+        .orderBy("createdAt", descending: true);
+    return _getPagingQuery(query, lastDate);
+  }
+
+  Query _getNotificationsQuery(String userId, DateTime lastDate) {
+    DocumentReference userRef = _getUserRef(userId);
+    Query query = _db.collection(NOTIFICATIONS_PATH)
         .where("userRef", isEqualTo: userRef)
         .orderBy("createdAt", descending: true);
     return _getPagingQuery(query, lastDate);

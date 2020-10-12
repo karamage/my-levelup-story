@@ -10,4 +10,5 @@ abstract class RemoteDatasource {
   Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate);
   Future<List<Map<String, dynamic>>> getOurItems(DateTime lastDate);
   Future<List<Map<String, dynamic>>> getProfileItems(String userId, DateTime lastDate);
+  Future<List<Map<String, dynamic>>> getNotifications(String userId, DateTime lastDate);
 }
