@@ -24,6 +24,7 @@ class HomeScreen extends HookWidget {
         children: BottomTabsFactory.getPages(),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed, // for item 3 over.
         onTap: (int index) { // define animation
           pageController.animateToPage(index,
               duration: const Duration(milliseconds: 10), curve: Curves.ease);

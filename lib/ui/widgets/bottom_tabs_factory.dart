@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_levelup_story/ui/screens/items_screen.dart';
+import 'package:my_levelup_story/ui/screens/notifys_screen.dart';
 import 'package:my_levelup_story/ui/screens/our_items_screen.dart';
 import 'package:my_levelup_story/ui/screens/settings_screen.dart';
 
@@ -12,6 +13,8 @@ class BottomTabsFactory {
       case 1:
         return "みんなのレベルアップ";
       case 2:
+        return "お知らせ";
+      case 3:
         return "設定";
       default:
         return "";
@@ -22,6 +25,7 @@ class BottomTabsFactory {
     return [
       ItemsScreen(), //call pages
       OurItemsScreen(),
+      NotifysScreen(),
       SettingsScreen(), //call pages
     ];
   }
@@ -34,7 +38,11 @@ class BottomTabsFactory {
       ),
       BottomNavigationBarItem( // call each bottom item
         icon: Icon(Icons.cloud),
-        label: 'マイリスト',
+        label: 'みんな',
+      ),
+      BottomNavigationBarItem( // call each bottom item
+        icon: Icon(Icons.home),
+        label: 'お知らせ',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.settings),
