@@ -71,6 +71,11 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<void> updateItem(Map<String, dynamic> params) async {
+    await _setDocument(ITEMS_PATH, params[ID_KEY], params);
+  }
+
+  @override
   Future<List<Map<String, dynamic>>> getItems(String userId,
       DateTime lastDate) async {
     return await _getJsons(_getItemsQuery(userId, lastDate));
