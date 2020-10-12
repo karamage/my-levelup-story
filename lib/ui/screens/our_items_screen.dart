@@ -39,7 +39,6 @@ class OurItemsScreen extends HookWidget {
   }
 
   Future<void> tapLike(String itemId) {
-    print("tapLike");
     _vm.addLike(itemId);
   }
 }
