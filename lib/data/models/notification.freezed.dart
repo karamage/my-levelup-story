@@ -18,10 +18,25 @@ class _$NotificationTearOff {
 
 // ignore: unused_element
   _Notification call(
-      {String id, User user, DateTime createdAt, DateTime updatedAt}) {
+      {String id,
+      String toUserId,
+      String fromUserId,
+      User fromUser,
+      NotificationType type = NotificationType.none,
+      String body = '',
+      bool isReaded = false,
+      String itemId,
+      DateTime createdAt,
+      DateTime updatedAt}) {
     return _Notification(
       id: id,
-      user: user,
+      toUserId: toUserId,
+      fromUserId: fromUserId,
+      fromUser: fromUser,
+      type: type,
+      body: body,
+      isReaded: isReaded,
+      itemId: itemId,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -40,7 +55,13 @@ const $Notification = _$NotificationTearOff();
 /// @nodoc
 mixin _$Notification {
   String get id;
-  User get user;
+  String get toUserId;
+  String get fromUserId;
+  User get fromUser;
+  NotificationType get type;
+  String get body;
+  bool get isReaded;
+  String get itemId; // コメントの場合、コメントされたItemId
   DateTime get createdAt;
   DateTime get updatedAt;
 
@@ -53,9 +74,19 @@ abstract class $NotificationCopyWith<$Res> {
   factory $NotificationCopyWith(
           Notification value, $Res Function(Notification) then) =
       _$NotificationCopyWithImpl<$Res>;
-  $Res call({String id, User user, DateTime createdAt, DateTime updatedAt});
+  $Res call(
+      {String id,
+      String toUserId,
+      String fromUserId,
+      User fromUser,
+      NotificationType type,
+      String body,
+      bool isReaded,
+      String itemId,
+      DateTime createdAt,
+      DateTime updatedAt});
 
-  $UserCopyWith<$Res> get user;
+  $UserCopyWith<$Res> get fromUser;
 }
 
 /// @nodoc
@@ -69,13 +100,26 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
   @override
   $Res call({
     Object id = freezed,
-    Object user = freezed,
+    Object toUserId = freezed,
+    Object fromUserId = freezed,
+    Object fromUser = freezed,
+    Object type = freezed,
+    Object body = freezed,
+    Object isReaded = freezed,
+    Object itemId = freezed,
     Object createdAt = freezed,
     Object updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
-      user: user == freezed ? _value.user : user as User,
+      toUserId: toUserId == freezed ? _value.toUserId : toUserId as String,
+      fromUserId:
+          fromUserId == freezed ? _value.fromUserId : fromUserId as String,
+      fromUser: fromUser == freezed ? _value.fromUser : fromUser as User,
+      type: type == freezed ? _value.type : type as NotificationType,
+      body: body == freezed ? _value.body : body as String,
+      isReaded: isReaded == freezed ? _value.isReaded : isReaded as bool,
+      itemId: itemId == freezed ? _value.itemId : itemId as String,
       createdAt:
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       updatedAt:
@@ -84,12 +128,12 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
   }
 
   @override
-  $UserCopyWith<$Res> get user {
-    if (_value.user == null) {
+  $UserCopyWith<$Res> get fromUser {
+    if (_value.fromUser == null) {
       return null;
     }
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+    return $UserCopyWith<$Res>(_value.fromUser, (value) {
+      return _then(_value.copyWith(fromUser: value));
     });
   }
 }
@@ -101,10 +145,20 @@ abstract class _$NotificationCopyWith<$Res>
           _Notification value, $Res Function(_Notification) then) =
       __$NotificationCopyWithImpl<$Res>;
   @override
-  $Res call({String id, User user, DateTime createdAt, DateTime updatedAt});
+  $Res call(
+      {String id,
+      String toUserId,
+      String fromUserId,
+      User fromUser,
+      NotificationType type,
+      String body,
+      bool isReaded,
+      String itemId,
+      DateTime createdAt,
+      DateTime updatedAt});
 
   @override
-  $UserCopyWith<$Res> get user;
+  $UserCopyWith<$Res> get fromUser;
 }
 
 /// @nodoc
@@ -120,13 +174,26 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
-    Object user = freezed,
+    Object toUserId = freezed,
+    Object fromUserId = freezed,
+    Object fromUser = freezed,
+    Object type = freezed,
+    Object body = freezed,
+    Object isReaded = freezed,
+    Object itemId = freezed,
     Object createdAt = freezed,
     Object updatedAt = freezed,
   }) {
     return _then(_Notification(
       id: id == freezed ? _value.id : id as String,
-      user: user == freezed ? _value.user : user as User,
+      toUserId: toUserId == freezed ? _value.toUserId : toUserId as String,
+      fromUserId:
+          fromUserId == freezed ? _value.fromUserId : fromUserId as String,
+      fromUser: fromUser == freezed ? _value.fromUser : fromUser as User,
+      type: type == freezed ? _value.type : type as NotificationType,
+      body: body == freezed ? _value.body : body as String,
+      isReaded: isReaded == freezed ? _value.isReaded : isReaded as bool,
+      itemId: itemId == freezed ? _value.itemId : itemId as String,
       createdAt:
           createdAt == freezed ? _value.createdAt : createdAt as DateTime,
       updatedAt:
@@ -139,7 +206,20 @@ class __$NotificationCopyWithImpl<$Res> extends _$NotificationCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Notification implements _Notification {
-  const _$_Notification({this.id, this.user, this.createdAt, this.updatedAt});
+  const _$_Notification(
+      {this.id,
+      this.toUserId,
+      this.fromUserId,
+      this.fromUser,
+      this.type = NotificationType.none,
+      this.body = '',
+      this.isReaded = false,
+      this.itemId,
+      this.createdAt,
+      this.updatedAt})
+      : assert(type != null),
+        assert(body != null),
+        assert(isReaded != null);
 
   factory _$_Notification.fromJson(Map<String, dynamic> json) =>
       _$_$_NotificationFromJson(json);
@@ -147,15 +227,30 @@ class _$_Notification implements _Notification {
   @override
   final String id;
   @override
-  final User user;
+  final String toUserId;
   @override
+  final String fromUserId;
+  @override
+  final User fromUser;
+  @JsonKey(defaultValue: NotificationType.none)
+  @override
+  final NotificationType type;
+  @JsonKey(defaultValue: '')
+  @override
+  final String body;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isReaded;
+  @override
+  final String itemId;
+  @override // コメントの場合、コメントされたItemId
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
 
   @override
   String toString() {
-    return 'Notification(id: $id, user: $user, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Notification(id: $id, toUserId: $toUserId, fromUserId: $fromUserId, fromUser: $fromUser, type: $type, body: $body, isReaded: $isReaded, itemId: $itemId, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -164,8 +259,24 @@ class _$_Notification implements _Notification {
         (other is _Notification &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.toUserId, toUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.toUserId, toUserId)) &&
+            (identical(other.fromUserId, fromUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.fromUserId, fromUserId)) &&
+            (identical(other.fromUser, fromUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.fromUser, fromUser)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.body, body) ||
+                const DeepCollectionEquality().equals(other.body, body)) &&
+            (identical(other.isReaded, isReaded) ||
+                const DeepCollectionEquality()
+                    .equals(other.isReaded, isReaded)) &&
+            (identical(other.itemId, itemId) ||
+                const DeepCollectionEquality().equals(other.itemId, itemId)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -178,7 +289,13 @@ class _$_Notification implements _Notification {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(toUserId) ^
+      const DeepCollectionEquality().hash(fromUserId) ^
+      const DeepCollectionEquality().hash(fromUser) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(body) ^
+      const DeepCollectionEquality().hash(isReaded) ^
+      const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt);
 
@@ -195,7 +312,13 @@ class _$_Notification implements _Notification {
 abstract class _Notification implements Notification {
   const factory _Notification(
       {String id,
-      User user,
+      String toUserId,
+      String fromUserId,
+      User fromUser,
+      NotificationType type,
+      String body,
+      bool isReaded,
+      String itemId,
       DateTime createdAt,
       DateTime updatedAt}) = _$_Notification;
 
@@ -205,8 +328,20 @@ abstract class _Notification implements Notification {
   @override
   String get id;
   @override
-  User get user;
+  String get toUserId;
   @override
+  String get fromUserId;
+  @override
+  User get fromUser;
+  @override
+  NotificationType get type;
+  @override
+  String get body;
+  @override
+  bool get isReaded;
+  @override
+  String get itemId;
+  @override // コメントの場合、コメントされたItemId
   DateTime get createdAt;
   @override
   DateTime get updatedAt;

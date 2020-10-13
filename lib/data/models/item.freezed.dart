@@ -25,7 +25,7 @@ class _$ItemTearOff {
       int starCount = 0,
       int commentCount = 0,
       bool isPublic = false,
-      CategoryType category,
+      CategoryType category = CategoryType.none,
       List<String> likedUserIds = const [],
       User user,
       DateTime createdAt,
@@ -234,7 +234,7 @@ class _$_Item implements _Item {
       this.starCount = 0,
       this.commentCount = 0,
       this.isPublic = false,
-      this.category,
+      this.category = CategoryType.none,
       this.likedUserIds = const [],
       this.user,
       this.createdAt,
@@ -245,6 +245,7 @@ class _$_Item implements _Item {
         assert(starCount != null),
         assert(commentCount != null),
         assert(isPublic != null),
+        assert(category != null),
         assert(likedUserIds != null);
 
   factory _$_Item.fromJson(Map<String, dynamic> json) =>
@@ -270,6 +271,7 @@ class _$_Item implements _Item {
   @JsonKey(defaultValue: false)
   @override
   final bool isPublic;
+  @JsonKey(defaultValue: CategoryType.none)
   @override
   final CategoryType category;
   @JsonKey(defaultValue: const [])

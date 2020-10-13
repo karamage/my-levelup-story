@@ -15,7 +15,8 @@ _$_Item _$_$_ItemFromJson(Map<String, dynamic> json) {
     starCount: json['starCount'] as int ?? 0,
     commentCount: json['commentCount'] as int ?? 0,
     isPublic: json['isPublic'] as bool ?? false,
-    category: _$enumDecodeNullable(_$CategoryTypeEnumMap, json['category']),
+    category: _$enumDecodeNullable(_$CategoryTypeEnumMap, json['category']) ??
+        CategoryType.none,
     likedUserIds:
         (json['likedUserIds'] as List)?.map((e) => e as String)?.toList() ?? [],
     user: json['user'] == null

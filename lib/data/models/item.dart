@@ -15,7 +15,7 @@ abstract class Item with _$Item{
     @Default(0) int starCount,
     @Default(0) int commentCount,
     @Default(false) bool isPublic,
-    CategoryType category,
+    @Default(CategoryType.none) CategoryType category,
     @Default([]) List<String> likedUserIds,
     User user,
     DateTime createdAt,
