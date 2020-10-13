@@ -136,9 +136,7 @@ class FirebaseDatasource implements RemoteDatasource {
     return params;
   }
 
-  String _getNewFirestoreId() {
-    return _db.collection('_').doc().id;
-  }
+  String _getNewFirestoreId() => _db.collection('_').doc().id;
 
   Future<Map<String, dynamic>> _setSubUserParam(Map<String, dynamic> params, String uuid, [String paramName = "user"]) async {
     DocumentSnapshot userDoc = await _getUserDoc(uuid);
