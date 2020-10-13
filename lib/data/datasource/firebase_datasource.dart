@@ -63,7 +63,7 @@ class FirebaseDatasource implements RemoteDatasource {
 
   @override
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params) async {
-    params = await _setFirebaseBasicParams(params);
+    params = await _setItemBasicParams(params);
     return convertTimestamp(
         await _setDocument(ITEMS_PATH, params[ID_KEY], params));
   }
@@ -122,10 +122,14 @@ class FirebaseDatasource implements RemoteDatasource {
     return json;
   }
 
-  Future<Map<String, dynamic>> _setFirebaseBasicParams(Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> _setItemBasicParams(Map<String, dynamic> params) async {
     String uuid = await LocalStorageManager.getMyUserId();
     await _setUserRefParam(params, uuid);
     await _setSubUserParam(params, uuid);
+    return _setBasicParams(params);
+  }
+
+  Future<Map<String, dynamic>> _setBasicParams(Map<String, dynamic> params) async {
     _setIdParam(params);
     _setCreatedAtParam(params);
     _setUpdatedAtParam(params);
