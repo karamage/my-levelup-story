@@ -24,4 +24,23 @@ abstract class Notification with _$Notification {
   }) = _Notification;
 
   factory Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
+
+  static Map<String, dynamic> createParams({String body, String type, String toUserId, String fromUserId, String itemId}) {
+    Map<String, dynamic> map = Map();
+    map["body"] = body;
+    map["type"] = type;
+    map["toUserId"] = toUserId;
+    map["fromUserId"] = fromUserId;
+    map["isReaded"] = false;
+    if (itemId != null) {
+      map["itemId"] = itemId;
+    }
+    return map;
+  }
+
+  static Map<String, dynamic> updateReadedParams() {
+    Map<String, dynamic> map = Map();
+    map['isReaded'] = true;
+    return map;
+  }
 }
