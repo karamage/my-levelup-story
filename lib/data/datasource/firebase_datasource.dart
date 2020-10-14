@@ -122,6 +122,14 @@ class FirebaseDatasource implements RemoteDatasource {
     return json;
   }
 
+  Future<Map<String, dynamic>> _setNotificationBasicParams(Map<String, dynamic> params) async {
+    final uuid = params["toUserId"];
+    final fromUserId = params["fromUserId"];
+    await _setUserRefParam(params, uuid);
+    await _setSubUserParam(params, fromUserId);
+    return _setBasicParams(params);
+  }
+
   Future<Map<String, dynamic>> _setItemBasicParams(Map<String, dynamic> params) async {
     String uuid = await LocalStorageManager.getMyUserId();
     await _setUserRefParam(params, uuid);
