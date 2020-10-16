@@ -1,7 +1,4 @@
-import 'package:enum_to_string/enum_to_string.dart';
-import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/models/notification.dart';
-import 'package:my_levelup_story/data/models/notification_type.dart';
 import 'package:my_levelup_story/data/models/notifications.dart';
 import 'package:my_levelup_story/data/repository/notification_repository.dart';
 import 'package:my_levelup_story/util/constants.dart';
@@ -38,16 +35,6 @@ class NotificationsViewModel extends StateNotifier<Notifications> {
     _lastItem = list.length > 0 ? list.last : null;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
-  }
-
-  Future<void> addLikeNotification(Item item) async {
-    String name = await LocalStorageManager.getMyName();
-    String uuid = await LocalStorageManager.getMyUserId();
-    final body = "$nameさんが「${item.title}」に、いいね！しました。";
-    final type = EnumToString.convertToString(NotificationType.like);
-    final toUserId = item.user.id;
-    final fromUserId = uuid;
-    await _repository.addNotification(body, type, toUserId, fromUserId);
   }
 
   Future<List<Notification>> _getItems() async {

@@ -1,5 +1,7 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/models/items.dart';
+import 'package:my_levelup_story/data/models/notification_type.dart';
 import 'package:my_levelup_story/data/repository/item_repository.dart';
 import 'package:my_levelup_story/data/repository/notification_repository.dart';
 import 'package:my_levelup_story/util/constants.dart';
@@ -11,12 +13,19 @@ class ItemsViewModel extends StateNotifier<Items> {
       ItemRepository repository,
       NotificationRepository notificationRepository,
       [String userId]
-      ) : _repository = repository, _userId = userId, super(const Items()) {
+    )
+      : _repository = repository,
+        _notificationRepository = notificationRepository,
+        _userId = userId,
+        super(const Items()
+      ) {
     () async {
       _userId ??= await LocalStorageManager.getMyUserId();
     }();
   }
+
   final ItemRepository _repository;
+  final NotificationRepository _notificationRepository;
 
   Item _lastItem;
   bool _isLast = false;
@@ -56,16 +65,18 @@ class ItemsViewModel extends StateNotifier<Items> {
     // awaitせずにlikeする
     _repository.addLike(itemId);
 
-    //お知らせを作成する
-    //notificationsModel.addLikeNotification(likedItem);
-
-    // userのtotalLikedCountをカウントアップ
-    //_api.updateUserTotalLikedCount(1, likedItem.user.id);
 
     var _items = [...state.items];
     final index = _items.indexWhere((item) => item.id == itemId);
     if (index > -1) {
       Item item = _items[index];
+
+      //お知らせを作成する
+      _addLikeNotification(item);
+
+      // userのtotalLikedCountをカウントアップ
+      //_api.updateUserTotalLikedCount(1, likedItem.user.id);
+
       item = item.copyWith(likeCount: item.likeCount + 1);
       item.likedUserIds.add(await LocalStorageManager.getMyUserId());
       _items.removeAt(index);
@@ -73,6 +84,17 @@ class ItemsViewModel extends StateNotifier<Items> {
       state = state.copyWith(items: _items);
     }
   }
+
+  Future<void> _addLikeNotification(Item item) async {
+    String name = await LocalStorageManager.getMyName();
+    String uuid = await LocalStorageManager.getMyUserId();
+    final body = "$nameさんが「${item.title}」に、いいね！しました。";
+    final type = EnumToString.convertToString(NotificationType.like);
+    final toUserId = item.user.id;
+    final fromUserId = uuid;
+    await _notificationRepository.addNotification(body, type, toUserId, fromUserId);
+  }
+
 
   // Itemの取得場所を切り替える際はrepositoryの実装をDIで切り替えるようにする
   Future<List<Item>> _getItems() async {
