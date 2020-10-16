@@ -65,7 +65,6 @@ class ItemsViewModel extends StateNotifier<Items> {
     // awaitせずにlikeする
     _repository.addLike(itemId);
 
-
     var _items = [...state.items];
     final index = _items.indexWhere((item) => item.id == itemId);
     if (index > -1) {
