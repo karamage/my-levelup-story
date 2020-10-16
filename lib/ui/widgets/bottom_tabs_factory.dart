@@ -23,10 +23,10 @@ class BottomTabsFactory {
 
   static List<Widget> getPages() {
     return [
-      ItemsScreen(), //call pages
+      ItemsScreen(),
       OurItemsScreen(),
       NotifysScreen(),
-      SettingsScreen(), //call pages
+      SettingsScreen(),
     ];
   }
 
@@ -41,7 +41,7 @@ class BottomTabsFactory {
         label: 'みんな',
       ),
       BottomNavigationBarItem( // call each bottom item
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.wifi),
         label: 'お知らせ',
       ),
       BottomNavigationBarItem(
