@@ -30,6 +30,6 @@ class OurItemCell extends ItemCell {
 
   @override
   Widget buildHeaderContents(BuildContext context) {
-    return Container(child: Text("our"));
+    return Container();
   }
 }
