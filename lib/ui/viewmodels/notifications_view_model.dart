@@ -16,12 +16,10 @@ class NotificationsViewModel extends StateNotifier<Notifications> {
   bool _isLast = false;
   String _userId;
 
-  /*
   Future<void> onRefresh() async {
     state = state.copyWith(isLoading: true);
     await reload();
   }
-  */
 
   Future<void> reload() async {
     print("NotificationsViewModel reload() start");
