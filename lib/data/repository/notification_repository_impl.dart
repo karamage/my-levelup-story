@@ -17,5 +17,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   @override
   Future<List<Notification>> getNotifications({String userId, Notification lastItem}) async {
+    return (await _ds.getNotifications(userId, lastItem?.createdAt))
+        .map((json) => Notification.fromJson(json)).toList();
   }
 }
