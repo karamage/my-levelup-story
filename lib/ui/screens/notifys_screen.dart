@@ -6,10 +6,13 @@ import 'package:my_levelup_story/data/providers/notifications_provider.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
 import 'package:my_levelup_story/ui/widgets/notification_cell.dart';
+import 'package:my_levelup_story/util/app_router.dart';
 
 class NotifysScreen extends HookWidget {
+  BuildContext _context;
   @override
   Widget build(BuildContext context) {
+    _context = context;
     final state = useProvider(notificationsProvider.state);
     final vm = useProvider(notificationsProvider);
     useEffect((){
@@ -33,6 +36,6 @@ class NotifysScreen extends HookWidget {
   }
 
   Future<void> tapNotification(n.Notification item) {
-    //画面遷移する
+    Navigator.pushNamed(_context, AppRouter.profileRoute, arguments: [item.fromUserId]);
   }
 }
