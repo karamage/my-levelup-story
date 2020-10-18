@@ -133,7 +133,7 @@ class FirebaseDatasource implements RemoteDatasource {
     final uuid = params["toUserId"];
     final fromUserId = params["fromUserId"];
     await _setUserRefParam(params, uuid);
-    await _setSubUserParam(params, fromUserId);
+    await _setSubUserParam(params, fromUserId, "fromUser");
     return _setBasicParams(params);
   }
 
