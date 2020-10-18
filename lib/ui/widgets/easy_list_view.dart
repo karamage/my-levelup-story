@@ -9,8 +9,18 @@ class EasyListView<T> extends HookWidget {
   final isLoading;
   final Widget loading;
   final Widget header;
+  final Widget emptyState;
 
-  EasyListView({@required this.items, this.onRefresh, this.onNext, @required this.buildCells, this.isLoading, this.loading, this.header});
+  EasyListView({
+    @required this.items,
+    this.onRefresh,
+    this.onNext,
+    @required this.buildCells,
+    this.isLoading,
+    this.loading,
+    this.header,
+    this.emptyState,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +50,9 @@ class EasyListView<T> extends HookWidget {
   }
 
   Widget _buildListView(ScrollController sc) {
+    if (isLoading != true && items.length == 0 && emptyState != null) {
+      return emptyState;
+    }
     return ListView(
       controller: sc,
       padding: const EdgeInsets.only(top: 20.0),

@@ -32,6 +32,7 @@ class NotifysScreen extends HookWidget {
           ).toList(),
       isLoading: state.isLoading,
       loading: LoadingIndicator(),
+      emptyState: Center(child: Text("お知らせが、ありません。")),
     );
   }
 
