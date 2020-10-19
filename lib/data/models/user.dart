@@ -48,4 +48,10 @@ abstract class User with _$User {
     if (u.imageUrl != null) map["imageUrl"] = u.imageUrl;
     return map;
   }
+
+  static Map<String, dynamic> updateTotalLikedCountParams({int count}) {
+    Map<String, dynamic> map = Map();
+    map["totalLikedCount"] = count;
+    return map;
+  }
 }

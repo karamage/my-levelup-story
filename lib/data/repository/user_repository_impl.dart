@@ -23,4 +23,10 @@ class UserRepositoryImpl implements UserRepository {
     final params = User.updateUserParams(id: id, nickname: nickname, desc: desc);
     return User.fromJson(await _ds.updateUser(params));
   }
+
+  @override
+  Future<void> updateUserLikeCount(String userId) async {
+    final user = User.fromJson(await _ds.getUser(userId));
+    await _ds.updateItem(User.updateTotalLikedCountParams(count: user.totalLikedCount + 1));
+  }
 }
