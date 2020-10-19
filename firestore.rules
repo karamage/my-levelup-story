@@ -67,9 +67,9 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow get: if isAuthenticated();
       allow create: if isUserAuthenticated(userId);
       allow update: if isUserAuthenticated(userId) || isUserCountUpdate();
+      allow get: if isAuthenticated();
     }
 
     match /items/{itemId} {
