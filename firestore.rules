@@ -22,15 +22,15 @@ service cloud.firestore {
     }
 
     function isPublicItem() {
-      return resource.data.isPublic == true;
+      return existingData().isPublic == true;
     }
 
-    function isItemCountUpdate() {
-      return resource.data.isPublic == true
-        && request.resource.data.size() == 12
-        && request.resource.data.id != null
-        && request.resource.data.likeCount != null
-        && request.resource.data.likedUserIds != null
+    function isItemLikeCountUpdate() {
+      return isPublicItem()
+        && dataDiff().affectedKeys().size() == 2 // update likeCount, likedUserIds
+        && isChanged(["likeCount", "likedUserIds"])
+        && isNotChanged(["id"])
+        && incomingData().likeCount == existingData().likeCount + 1
     }
 
     function isUserCountUpdate() {
@@ -38,6 +38,36 @@ service cloud.firestore {
         && (request.resource.data.totalStaredCount != null
             || request.resource.data.totalLikedCount != null
             || request.resource.data.profileViewedCount != null);
+    }
+
+    function documentPath(paths) {
+      return path([
+        ['databases', database, 'documents'].join('/'),
+        paths.join('/')
+        ].join('/')
+      );
+    }
+
+    function incomingData() {
+      return request.resource.data;
+    }
+
+    function existingData() {
+      return resource.data;
+    }
+
+    function dataDiff() {
+      return incomingData().diff(existingData());
+    }
+
+    function isChanged(keys) {
+      let affectedKeys = dataDiff().affectedKeys();
+      return affectedKeys.hasAny(keys.toSet());
+    }
+
+    function isNotChanged(keys) {
+      let affectedKeys = dataDiff().affectedKeys();
+      return !affectedKeys.hasAny(keys.toSet());
     }
 
     match /users/{userId} {
@@ -50,7 +80,7 @@ service cloud.firestore {
       allow create: if isRequestMyItem();
       allow delete: if isMyItem();
       allow read: if isMyItem() || isPublicItem();
-      allow update: if isMyItem() || isItemCountUpdate();
+      allow update: if isMyItem() || isItemLikeCountUpdate();
     }
 
     match /notifications/{itemId} {
