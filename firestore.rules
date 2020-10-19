@@ -30,10 +30,11 @@ service cloud.firestore {
     }
 
     function isUserCountUpdate() {
-      return request.resource.data.size() == 1
-        && (request.resource.data.totalStaredCount != null
-            || request.resource.data.totalLikedCount != null
-            || request.resource.data.profileViewedCount != null);
+      return dataDiff().affectedKeys().size() == 1
+             && (incomingData().totalLikedCount == existingData().likeCount + 1
+      //       || request.resource.data.totalLikedCount != null
+      //       || request.resource.data.profileViewedCount != null
+             );
     }
 
     function documentPath(paths) {
