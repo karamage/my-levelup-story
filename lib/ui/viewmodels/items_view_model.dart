@@ -4,6 +4,7 @@ import 'package:my_levelup_story/data/models/items.dart';
 import 'package:my_levelup_story/data/models/notification_type.dart';
 import 'package:my_levelup_story/data/repository/item_repository.dart';
 import 'package:my_levelup_story/data/repository/notification_repository.dart';
+import 'package:my_levelup_story/data/repository/user_repository.dart';
 import 'package:my_levelup_story/util/constants.dart';
 import 'package:my_levelup_story/util/local_storage_manager.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -12,13 +13,15 @@ class ItemsViewModel extends StateNotifier<Items> {
   ItemsViewModel(
       ItemRepository repository,
       NotificationRepository notificationRepository,
+      UserRepository userRepository,
       [String userId]
     )
       : _repository = repository,
         _notificationRepository = notificationRepository,
+        _userRepository = userRepository,
         _userId = userId,
-        super(const Items()
-      ) {
+        super(const Items())
+  {
     () async {
       _userId ??= await LocalStorageManager.getMyUserId();
     }();
@@ -26,6 +29,7 @@ class ItemsViewModel extends StateNotifier<Items> {
 
   final ItemRepository _repository;
   final NotificationRepository _notificationRepository;
+  final UserRepository _userRepository;
 
   Item _lastItem;
   bool _isLast = false;
@@ -74,7 +78,7 @@ class ItemsViewModel extends StateNotifier<Items> {
       _addLikeNotification(item);
 
       // userのtotalLikedCountをカウントアップ
-      //_api.updateUserTotalLikedCount(1, likedItem.user.id);
+      _userRepository.updateUserLikeCount(item.user.id);
 
       item = item.copyWith(likeCount: item.likeCount + 1);
       item.likedUserIds.add(await LocalStorageManager.getMyUserId());
