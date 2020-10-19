@@ -22,10 +22,10 @@ class _$UserTearOff {
       String nickname,
       String desc,
       String imageUrl,
-      int totalPoint,
-      int profileViewedCount,
-      int totalLikedCount,
-      int profileCommentCount}) {
+      int totalPoint = 0,
+      int profileViewedCount = 0,
+      int totalLikedCount = 0,
+      int profileCommentCount = 0}) {
     return _User(
       id: id,
       nickname: nickname,
@@ -180,10 +180,14 @@ class _$_User implements _User {
       this.nickname,
       this.desc,
       this.imageUrl,
-      this.totalPoint,
-      this.profileViewedCount,
-      this.totalLikedCount,
-      this.profileCommentCount});
+      this.totalPoint = 0,
+      this.profileViewedCount = 0,
+      this.totalLikedCount = 0,
+      this.profileCommentCount = 0})
+      : assert(totalPoint != null),
+        assert(profileViewedCount != null),
+        assert(totalLikedCount != null),
+        assert(profileCommentCount != null);
 
   factory _$_User.fromJson(Map<String, dynamic> json) =>
       _$_$_UserFromJson(json);
@@ -196,12 +200,16 @@ class _$_User implements _User {
   final String desc;
   @override
   final String imageUrl;
+  @JsonKey(defaultValue: 0)
   @override
   final int totalPoint;
+  @JsonKey(defaultValue: 0)
   @override
   final int profileViewedCount;
+  @JsonKey(defaultValue: 0)
   @override
   final int totalLikedCount;
+  @JsonKey(defaultValue: 0)
   @override
   final int profileCommentCount;
 

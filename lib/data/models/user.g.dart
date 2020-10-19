@@ -12,10 +12,10 @@ _$_User _$_$_UserFromJson(Map<String, dynamic> json) {
     nickname: json['nickname'] as String,
     desc: json['desc'] as String,
     imageUrl: json['imageUrl'] as String,
-    totalPoint: json['totalPoint'] as int,
-    profileViewedCount: json['profileViewedCount'] as int,
-    totalLikedCount: json['totalLikedCount'] as int,
-    profileCommentCount: json['profileCommentCount'] as int,
+    totalPoint: json['totalPoint'] as int ?? 0,
+    profileViewedCount: json['profileViewedCount'] as int ?? 0,
+    totalLikedCount: json['totalLikedCount'] as int ?? 0,
+    profileCommentCount: json['profileCommentCount'] as int ?? 0,
   );
 }
 

@@ -28,6 +28,9 @@ class SettingsScreen extends HookWidget {
     return InputFormsView(
       children: [
         _buildMyProfile(context, myUser, myUserVM, nameController, descController),
+        Divider(),
+        SpaceBox(height: 16.0),
+        _buildMyStatus(context, myUser),
       ],
     );
   }
@@ -88,5 +91,25 @@ class SettingsScreen extends HookWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildMyStatus(
+      BuildContext context,
+      User myUser,
+      ) {
+    return Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Text("ステータス"),
+              Divider(),
+              Text("ポイント ${myUser.totalPoint}pt"),
+              SpaceBox(height: 12.0),
+              Text("いいね！された数 ${myUser.totalLikedCount}いいね！"),
+            ],
+          ),
+        ),
+      );
   }
 }

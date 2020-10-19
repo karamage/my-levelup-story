@@ -10,10 +10,10 @@ abstract class User with _$User {
     String nickname,
     String desc,
     String imageUrl,
-    int totalPoint,
-    int profileViewedCount,
-    int totalLikedCount,
-    int profileCommentCount,
+    @Default(0) int totalPoint,
+    @Default(0) int profileViewedCount,
+    @Default(0) int totalLikedCount,
+    @Default(0) int profileCommentCount,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) =>
