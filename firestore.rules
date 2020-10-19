@@ -10,15 +10,11 @@ service cloud.firestore {
     }
 
     function isMyItem() {
-      return resource.data.userRef != null
-        && resource.data.userRef
-        == /databases/$(database)/documents/users/$(request.auth.uid)
+      return existingData().userRef == documentPath(['users',request.auth.uid])
     }
 
     function isRequestMyItem() {
-      return request.resource.data.userRef != null
-        && request.resource.data.userRef
-        == /databases/$(database)/documents/users/$(request.auth.uid)
+      return incomingData().userRef == documentPath(['users',request.auth.uid])
     }
 
     function isPublicItem() {
