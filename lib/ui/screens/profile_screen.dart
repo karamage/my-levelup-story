@@ -7,8 +7,8 @@ import 'package:my_levelup_story/data/providers/profile_items_provider.dart';
 import 'package:my_levelup_story/data/providers/user_provider.dart';
 import 'package:my_levelup_story/ui/viewmodels/items_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
-import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
+import 'package:my_levelup_story/ui/widgets/our_item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
@@ -42,7 +42,7 @@ class ProfileScreen extends HookWidget {
         onNext: _vm.next,
         buildCells: (items) =>
             items.map((item) =>
-                ItemCell(
+                OurItemCell(
                   item: item,
                   myUserId: myUserState.id,
                   tapLike: tapLike,
