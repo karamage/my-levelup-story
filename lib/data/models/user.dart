@@ -49,8 +49,9 @@ abstract class User with _$User {
     return map;
   }
 
-  static Map<String, dynamic> updateTotalLikedCountParams({int count}) {
+  static Map<String, dynamic> updateTotalLikedCountParams(int count, String id) {
     Map<String, dynamic> map = Map();
+    map["id"] = id;
     map["totalLikedCount"] = count;
     return map;
   }

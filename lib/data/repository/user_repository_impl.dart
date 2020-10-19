@@ -27,6 +27,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> updateUserLikeCount(String userId) async {
     final user = User.fromJson(await _ds.getUser(userId));
-    await _ds.updateItem(User.updateTotalLikedCountParams(count: user.totalLikedCount + 1));
+    await _ds.updateUser(User.updateTotalLikedCountParams(user.totalLikedCount + 1, userId));
   }
 }

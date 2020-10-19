@@ -30,8 +30,10 @@ service cloud.firestore {
     }
 
     function isUserCountUpdate() {
-      return dataDiff().affectedKeys().size() == 1
-             && (incomingData().totalLikedCount == existingData().likeCount + 1
+      return dataDiff().affectedKeys().size() == 2
+             && isNotChanged(["id"])
+             && isChanged(["totalLikedCount","updatedAt"])
+             && (incomingData().totalLikedCount == existingData().totalLikedCount + 1
       //       || request.resource.data.totalLikedCount != null
       //       || request.resource.data.profileViewedCount != null
              );
