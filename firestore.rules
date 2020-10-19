@@ -22,24 +22,40 @@ service cloud.firestore {
     }
 
     function isPublicItem() {
+      return resource.data.isPublic == true;
+    }
+
+    function isItemCountUpdate() {
       return resource.data.isPublic == true
+        && request.resource.data.size() == 12
+        && request.resource.data.id != null
+        && request.resource.data.likeCount != null
+        && request.resource.data.likedUserIds != null
+    }
+
+    function isUserCountUpdate() {
+      return request.resource.data.size() == 1
+        && (request.resource.data.totalStaredCount != null
+            || request.resource.data.totalLikedCount != null
+            || request.resource.data.profileViewedCount != null);
     }
 
     match /users/{userId} {
       allow get: if isAuthenticated();
       allow create: if isUserAuthenticated(userId);
-      allow update: if isUserAuthenticated(userId);
+      allow update: if isUserAuthenticated(userId) || isUserCountUpdate();
     }
 
     match /items/{itemId} {
       allow create: if isRequestMyItem();
-      allow update, delete: if isMyItem();
-      allow get, read, update: if isMyItem() || isPublicItem();
+      allow delete: if isMyItem();
+      allow read: if isMyItem() || isPublicItem();
+      allow update: if isMyItem() || isItemCountUpdate();
     }
 
     match /notifications/{itemId} {
       allow create, get: if isAuthenticated();
-      allow update, read, delete: if isMyItem();
+      allow update, list, delete: if isMyItem();
     }
   }
 }
