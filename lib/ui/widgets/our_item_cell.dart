@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
+import 'package:my_levelup_story/ui/widgets/like_button.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 
 class OurItemCell extends ItemCell {
@@ -25,6 +26,31 @@ class OurItemCell extends ItemCell {
         buildCommentContents(context),
         buildButtonContents(context),
       ],
+    );
+  }
+
+  @override
+  Widget buildButtonContents(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          /*
+          Expanded(
+            child: CommentButton(item:item),
+          ),
+          */
+          Expanded(
+            child: LikeButton(
+                isLiked: isMyLiked(),
+                likeCount: item.likeCount,
+                itemId: item.id,
+                tapLike: tapLike
+            ),
+          ),
+        ],
+      ),
     );
   }
 

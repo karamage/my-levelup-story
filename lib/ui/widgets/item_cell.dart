@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/ui/widgets/item_edit_button.dart';
 import 'package:my_levelup_story/ui/widgets/like_button.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 import 'package:my_levelup_story/util/app_router.dart';
 
+// ignore: must_be_immutable
 class ItemCell extends StatelessWidget {
   final Item item;
   final String myUserId;
   final Future<void> Function(String itemId) tapLike;
+  final Future<void> Function(Item item) tapEdit;
   ItemCell({
     @required this.item,
     @required this.myUserId,
     @required this.tapLike,
+    this.tapEdit,
   }) {
     assert(item != null);
     assert(myUserId != null);
@@ -88,9 +92,8 @@ class ItemCell extends StatelessWidget {
                 tapLike: tapLike
             ),
           ),
+          if (isMyItem()) Expanded(child: ItemEditButton(item, tapEdit)),
           /*
-          itemsModel.isOur || !item.isMyItem() ? Container()
-              : Expanded(child: ItemEditButton(item: item, completedEditItem: completedEditItem)),
           itemsModel.isOur || !item.isMyItem() ? Container()
               : Expanded(child: ItemDeleteButton(item: item, completedDeleteItem: completedDeleteItem)),
           */
