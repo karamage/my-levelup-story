@@ -7,6 +7,7 @@ import 'package:my_levelup_story/ui/screens/profile_screen.dart';
 class AppRouter {
   static const String mainRoute = '/';
   static const String addItemRoute = '/add_item';
+  static const String editItemRoute = '/edit_item';
   static const String profileRoute = '/profile';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,6 +23,13 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => AddItemScreen(editItem: null, callback: callback),
             fullscreenDialog: true
+        );
+      case editItemRoute:
+        final args = settings.arguments as List;
+        final editItem = args[0] as Item;
+        final callback = args[1] as Function(Item editedItem);
+        return MaterialPageRoute(
+            builder: (_) => AddItemScreen(editItem: editItem, callback: callback),
         );
       case profileRoute:
         final args = settings.arguments as List;

@@ -14,7 +14,7 @@ class AddItemScreen extends HookWidget {
   AddItemScreen({Key key, this.editItem, this.callback}): super(key: key);
 
   String headerTitle() => editItem != null ? '更新' : '成長を記録する';
-  String buttonTitle() => editItem != null ? '編集する' : '作成する';
+  String buttonTitle() => editItem != null ? '更新する' : '作成する';
 
   @override
   Widget build(BuildContext context) {

@@ -92,7 +92,12 @@ class ItemCell extends StatelessWidget {
                 tapLike: tapLike
             ),
           ),
-          if (isMyItem()) Expanded(child: ItemEditButton(item, tapEdit)),
+          if (isMyItem()) Expanded(
+              child: ItemEditButton(
+                  item,
+                  tapEdit
+              )
+          ),
           /*
           itemsModel.isOur || !item.isMyItem() ? Container()
               : Expanded(child: ItemDeleteButton(item: item, completedDeleteItem: completedDeleteItem)),

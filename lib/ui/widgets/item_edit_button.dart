@@ -3,7 +3,7 @@ import 'package:my_levelup_story/data/models/item.dart';
 
 class ItemEditButton extends StatelessWidget {
   final Item item;
-  final void Function(Item item) tapEdit;
+  final Future<void> Function(Item item) tapEdit;
 
   ItemEditButton(this.item, this.tapEdit);
 
