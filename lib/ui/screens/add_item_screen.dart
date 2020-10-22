@@ -22,6 +22,10 @@ class AddItemScreen extends HookWidget {
     final bodyController = useTextEditingController();
     final vm = useProvider(itemsProvider);
     var isPublic = useState(false);
+    useEffect((){
+      if (editItem != null) initEditItem(editItem, titleController, bodyController, isPublic);
+      return null;
+    }, []);
     return Scaffold(
       appBar: WhiteAppBar.build(headerTitle()),
       body: InputFormsView(
@@ -33,6 +37,12 @@ class AddItemScreen extends HookWidget {
         ],
       ),
     );
+  }
+
+  initEditItem(Item editItem, TextEditingController titleController, TextEditingController bodyController, ValueNotifier isPublic) {
+    titleController.text = editItem.title;
+    bodyController.text = editItem.body;
+    isPublic.value = editItem.isPublic;
   }
 
   Widget _buildPublic(ValueNotifier isPublic) {
@@ -48,9 +58,10 @@ class AddItemScreen extends HookWidget {
     final String title = titlec.text;
     final String body = bodyc.text;
     LoadingDialog.showLoading(ctx);
-    final addedItem = await vm.addItem(title, body, isPublic.value);
+    final afterItem = editItem != null ? await vm.editItem(editItem.id, title, body, isPublic.value)
+        : await vm.addItem(title, body, isPublic.value);
     LoadingDialog.hideLoading(ctx);
-    if (callback != null) callback(addedItem);
+    if (callback != null) callback(afterItem);
     Navigator.pop(ctx);
   }
 

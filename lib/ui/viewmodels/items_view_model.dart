@@ -65,6 +65,15 @@ class ItemsViewModel extends StateNotifier<Items> {
     return item;
   }
 
+  Future<Item> editItem(String id, String title, String body, bool isPublic) async {
+    //TODO
+    //final item = await _repository.editItem(title, body, isPublic);
+
+    //TODO replace
+    //if (item != null) state = state.copyWith(items: [...state.items]..insert(0, item));
+    //return item;
+  }
+
   Future<void> addLike(String itemId) async {
     // awaitせずにlikeする
     _repository.addLike(itemId);
@@ -82,6 +91,13 @@ class ItemsViewModel extends StateNotifier<Items> {
 
       item = item.copyWith(likeCount: item.likeCount + 1);
       item.likedUserIds.add(await LocalStorageManager.getMyUserId());
+      _replaceItem(_items, item);
+    }
+  }
+
+  _replaceItem(List<Item> _items, Item item) {
+    final index = _items.indexWhere((_item) => _item.id == item.id);
+    if (index > -1) {
       _items.removeAt(index);
       _items.insert(index, item);
       state = state.copyWith(items: _items);
