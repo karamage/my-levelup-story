@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/ui/widgets/item_delete_button.dart';
 import 'package:my_levelup_story/ui/widgets/item_edit_button.dart';
 import 'package:my_levelup_story/ui/widgets/like_button.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
@@ -12,11 +13,13 @@ class ItemCell extends StatelessWidget {
   final String myUserId;
   final Future<void> Function(String itemId) tapLike;
   final Future<void> Function(Item item) tapEdit;
+  final Future<void> Function(Item item) tapDelete;
   ItemCell({
     @required this.item,
     @required this.myUserId,
     @required this.tapLike,
     this.tapEdit,
+    this.tapDelete,
   }) {
     assert(item != null);
     assert(myUserId != null);
@@ -98,10 +101,12 @@ class ItemCell extends StatelessWidget {
                   tapEdit
               )
           ),
-          /*
-          itemsModel.isOur || !item.isMyItem() ? Container()
-              : Expanded(child: ItemDeleteButton(item: item, completedDeleteItem: completedDeleteItem)),
-          */
+          if (isMyItem()) Expanded(
+              child: ItemDeleteButton(
+                  item,
+                  tapDelete
+              )
+          ),
         ],
       ),
     );
@@ -130,7 +135,7 @@ class ItemCell extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text(item.user.nickname, style: Theme.of(context).textTheme.subhead),
+                      child: Text(item.user.nickname, style: Theme.of(context).textTheme.subtitle1),
                     ),
                     //Text(item.createdAtMMDD(), style: Theme.of(context).textTheme.caption),
                     SpaceBox.width(4),
@@ -138,9 +143,9 @@ class ItemCell extends StatelessWidget {
                 ),
                 SpaceBox.height(8),
                 if (item.isPublic == true) Text("公開"),
-                Text(item.title, style: Theme.of(context).textTheme.title),
+                Text(item.title, style: Theme.of(context).textTheme.subtitle2),
                 SpaceBox.height(4),
-                Text(item.body, style: Theme.of(context).textTheme.body1),
+                Text(item.body, style: Theme.of(context).textTheme.bodyText1),
                 /*
                 SpaceBox.height(8),
                 item.category == CategoryType.none ?
