@@ -80,6 +80,11 @@ class FirebaseDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<void> deleteItem(String id) async {
+    await _deleteDocument(ITEMS_PATH, id);
+  }
+
+  @override
   Future<Map<String, dynamic>> getItem(String itemId) async {
     return _getJson((await _getItemDoc(itemId)).data());
   }
@@ -170,6 +175,10 @@ class FirebaseDatasource implements RemoteDatasource {
     DocumentReference doc = _db.collection(collectionPath).doc(documentId);
     await doc.set(params, SetOptions(merge: true));
     return (await doc.get()).data();
+  }
+
+  Future<void> _deleteDocument(String collectionPath, String documentId) async {
+    await _db.collection(collectionPath).doc(documentId).delete();
   }
 
   Query _getItemsQuery(String userId, DateTime lastDate) {
