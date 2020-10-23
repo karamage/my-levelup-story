@@ -31,4 +31,10 @@ class OurItemRepositoryImpl implements ItemRepository {
     // TODO: implement editItem
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> deleteItem(String id) {
+    // TODO: implement deleteItem
+    throw UnimplementedError();
+  }
 }

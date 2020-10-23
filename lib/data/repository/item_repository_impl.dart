@@ -32,6 +32,11 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
+  Future<void> deleteItem(String id) async {
+    await _ds.deleteItem(id);
+  }
+
+  @override
   Future<void> addLike(String itemId) async {
     final item = Item.fromJson(await _ds.getItem(itemId));
     item.likedUserIds.add(await LocalStorageManager.getMyUserId());

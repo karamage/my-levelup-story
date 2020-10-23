@@ -4,5 +4,6 @@ abstract class ItemRepository {
   Future<Item> addItem(String title, String body, bool isPublic);
   Future<Item> editItem(String id, String title, String body, bool isPublic);
   Future<void> addLike(String itemId);
+  Future<void> deleteItem(String id);
   Future<List<Item>> getItems({String userId, Item lastItem});
 }
