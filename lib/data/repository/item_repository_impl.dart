@@ -11,11 +11,24 @@ class ItemRepositoryImpl implements ItemRepository {
   @override
   Future<Item> addItem(String title, String body, bool isPublic) async {
     final params = Item.createParams(
-        title: title,
-        body: body,
-        isPublic: isPublic,
+        title,
+        body,
+        isPublic,
     );
     return Item.fromJson(await _ds.addItem(params));
+  }
+
+  @override
+  Future<Item> editItem(String id, String title, String body, bool isPublic) async {
+    final params = Item.createParams(
+      title,
+      body,
+      isPublic,
+      null,
+      null,
+      id
+    );
+    return Item.fromJson(await _ds.editItem(params));
   }
 
   @override

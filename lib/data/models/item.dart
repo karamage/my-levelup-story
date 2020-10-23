@@ -24,22 +24,24 @@ abstract class Item with _$Item{
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
   static Map<String, dynamic> createParams(
-      {
-        String title,
-        String body,
-        bool isPublic,
+      String title,
+      String body,
+      bool isPublic,
+      [
         String category,
         String imageUrl,
-        bool isEdit
-      }
+        String editItemId
+      ]
     ) {
     Map<String, dynamic> map = Map();
     map["title"] = title;
     map["body"] = body;
-    if (isEdit == false || isEdit == null) {
+    if (editItemId == null) {
       map["likeCount"] = 0;
       map["starCount"] = 0;
       map["commentCount"] = 0;
+    } else {
+      map["id"] = editItemId;
     }
     map["isPublic"] = isPublic;
     if (category != null) {

@@ -25,4 +25,10 @@ class OurItemRepositoryImpl implements ItemRepository {
     final jsons = await _ds.getOurItems(lastItem?.createdAt);
     return jsons.map((json) => Item.fromJson(json)).toList();
   }
+
+  @override
+  Future<Item> editItem(String id, String title, String body, bool isPublic) {
+    // TODO: implement editItem
+    throw UnimplementedError();
+  }
 }

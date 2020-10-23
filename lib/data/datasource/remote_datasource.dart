@@ -5,6 +5,7 @@ abstract class RemoteDatasource {
   Future<Map<String, dynamic>> addUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>> updateUser(Map<String, dynamic> params);
   Future<Map<String, dynamic>> addItem(Map<String, dynamic> params);
+  Future<Map<String, dynamic>> editItem(Map<String, dynamic> params);
   Future<void> updateItem(Map<String, dynamic> params);
   Future<Map<String, dynamic>> getItem(String itemId);
   Future<List<Map<String, dynamic>>> getItems(String userId, DateTime lastDate);

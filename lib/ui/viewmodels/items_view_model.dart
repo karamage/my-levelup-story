@@ -66,12 +66,10 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<Item> editItem(String id, String title, String body, bool isPublic) async {
-    //TODO
-    //final item = await _repository.editItem(title, body, isPublic);
-
-    //TODO replace
-    //if (item != null) state = state.copyWith(items: [...state.items]..insert(0, item));
-    //return item;
+    final item = await _repository.editItem(id, title, body, isPublic);
+    final _items = [...state.items];
+    _replaceItem(_items, item);
+    return item;
   }
 
   Future<void> addLike(String itemId) async {
