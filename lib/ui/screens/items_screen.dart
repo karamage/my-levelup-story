@@ -36,6 +36,7 @@ class ItemsScreen extends HookWidget {
                 myUserId: myUserState.id,
                 tapLike: tapLike,
                 tapEdit: tapEdit,
+                tapDelete: tapDelete,
               )
           ).toList(),
       isLoading: state.isLoading,
@@ -49,6 +50,11 @@ class ItemsScreen extends HookWidget {
 
   Future<void> tapEdit(Item item) {
     Navigator.pushNamed(_context, AppRouter.editItemRoute, arguments: [item, completedEditItem]);
+  }
+
+  Future<void> tapDelete(Item item) {
+    // TODO
+    print("tapDelete");
   }
 
   Future<void> completedEditItem(Item item) {
