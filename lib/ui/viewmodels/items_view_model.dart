@@ -72,6 +72,12 @@ class ItemsViewModel extends StateNotifier<Items> {
     return item;
   }
 
+  Future<void> deleteItem(String id) async {
+    print("deleteItem id=$id");
+    await _repository.deleteItem(id);
+    state = state.copyWith(items: state.items.where((item) => item.id != id).toList());
+  }
+
   Future<void> addLike(String itemId) async {
     // awaitせずにlikeする
     _repository.addLike(itemId);

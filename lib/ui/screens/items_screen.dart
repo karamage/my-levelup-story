@@ -8,7 +8,9 @@ import 'package:my_levelup_story/ui/viewmodels/items_view_model.dart';
 import 'package:my_levelup_story/ui/widgets/easy_list_view.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/loading_indicator.dart';
+import 'package:my_levelup_story/util/alert_dialog_manager.dart';
 import 'package:my_levelup_story/util/app_router.dart';
+import 'package:my_levelup_story/util/loading_dialog.dart';
 
 class ItemsScreen extends HookWidget {
   ItemsViewModel _vm;
@@ -53,11 +55,15 @@ class ItemsScreen extends HookWidget {
   }
 
   Future<void> tapDelete(Item item) {
-    // TODO
-    print("tapDelete");
+    AlertDialogManager.showConfirmDialog(_context, "削除確認",
+        "本当に削除してもよろしいですか?", "削除する", (itemId) async {
+      LoadingDialog.showLoading(_context);
+      await _vm.deleteItem(itemId);
+      LoadingDialog.hideLoading(_context);
+    }, item.id);
+
   }
 
   Future<void> completedEditItem(Item item) {
-    print("completedEditItem");
   }
 }

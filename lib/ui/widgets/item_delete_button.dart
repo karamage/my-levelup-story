@@ -20,13 +20,6 @@ class ItemDeleteButton extends StatelessWidget {
         ),
         onPressed: () {
           if (tapDelete != null) tapDelete(item);
-          /*
-          AlertDialogManager.showConfirmDialog(context, "削除確認",
-              "本当に削除してもよろしいですか?", "削除する", (itemId) async {
-                itemsModel.deleteItem(itemId);
-              }, item.id);
-
-          */
         },
         label: Text(""),
         color: Colors.white,
