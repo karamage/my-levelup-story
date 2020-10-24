@@ -24,7 +24,12 @@ class NotificationsViewModel extends StateNotifier<Notifications> {
     final list = await _getItems();
     if (list.length > 0) _lastItem = list.last;
     _isLast = list.length < LIST_LIMIT;
+    // 最新のメッセージを既読にする
+    if (list.length > 0 && list[0].isReaded == false) {
+      _repository.updateNotificationReaded(list[0].id);
+    }
     state = state.copyWith(items: list, isLoading: false);
+    _prepareIsReaded();
     print("NotificationsViewModel reload() end");
   }
 
@@ -35,12 +40,34 @@ class NotificationsViewModel extends StateNotifier<Notifications> {
     _lastItem = list.length > 0 ? list.last : null;
     _isLast = list.length < LIST_LIMIT;
     state = state.copyWith(items: [...state.items]..addAll(list), isLoading: false);
+    _prepareIsReaded();
   }
 
   Future<List<Notification>> _getItems() async {
     _userId ??= await LocalStorageManager.getMyUserId();
     return await _repository.getNotifications(userId: _userId, lastItem: _lastItem);
   }
+
+  void _prepareIsReaded() {
+    //既読にされてるもの配下はすべて既読にする
+    bool isReaded = false;
+    final _items = [...state.items];
+    _items.forEach((item) {
+      if (item.isReaded) isReaded = true;
+      item = item.copyWith(isReaded: isReaded);
+      _replaceItem(_items, item);
+    });
+    state = state.copyWith(items: _items);
+  }
+
+  _replaceItem(List<Notification> _items, Notification item) {
+    final index = _items.indexWhere((_item) => _item.id == item.id);
+    if (index > -1) {
+      _items.removeAt(index);
+      _items.insert(index, item);
+    }
+  }
+
 
   _clear() {
     _isLast = false;
