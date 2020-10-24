@@ -73,7 +73,6 @@ class ItemsViewModel extends StateNotifier<Items> {
   }
 
   Future<void> deleteItem(String id) async {
-    print("deleteItem id=$id");
     await _repository.deleteItem(id);
     state = state.copyWith(items: state.items.where((item) => item.id != id).toList());
   }
