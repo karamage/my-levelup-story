@@ -117,6 +117,11 @@ class FirebaseDatasource implements RemoteDatasource {
         await _setDocument(NOTIFICATIONS_PATH, params[ID_KEY], params));
   }
 
+  @override
+  Future<void> updateNotification(Map<String, dynamic> params) async {
+    await _setDocument(NOTIFICATIONS_PATH, params[ID_KEY], params);
+  }
+
   // --- private method ---
   DocumentReference _getUserRef(uuid) => _db.collection(USERS_PATH).doc(uuid);
   DocumentReference _getItemRef(uuid) => _db.collection(ITEMS_PATH).doc(uuid);
