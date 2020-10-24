@@ -38,8 +38,9 @@ abstract class Notification with _$Notification {
     return map;
   }
 
-  static Map<String, dynamic> updateReadedParams() {
+  static Map<String, dynamic> updateReadedParams(String id) {
     Map<String, dynamic> map = Map();
+    map['id'] = id;
     map['isReaded'] = true;
     return map;
   }

@@ -20,4 +20,10 @@ class NotificationRepositoryImpl implements NotificationRepository {
     return (await _ds.getNotifications(userId, lastItem?.createdAt))
         .map((json) => Notification.fromJson(json)).toList();
   }
+
+  @override
+  Future<void> updateNotificationReaded(String id) async {
+    final params = Notification.updateReadedParams(id);
+    await _ds.updateNotification(params);
+  }
 }
