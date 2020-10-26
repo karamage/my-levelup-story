@@ -65,6 +65,7 @@ class ItemsScreen extends HookWidget {
   }
 
   Future<void> tapComment(Item item) {
+    Navigator.pushNamed(_context, AppRouter.commentsRoute, arguments: [item]);
   }
 
   Future<void> completedEditItem(Item item) {

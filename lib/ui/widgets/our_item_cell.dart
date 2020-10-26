@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_levelup_story/ui/widgets/comment_button.dart';
 import 'package:my_levelup_story/ui/widgets/item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/like_button.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
@@ -38,11 +39,12 @@ class OurItemCell extends ItemCell {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /*
           Expanded(
-            child: CommentButton(item:item),
+            child: CommentButton(
+                item,
+                tapComment
+            ),
           ),
-          */
           Expanded(
             child: LikeButton(
                 isLiked: isMyLiked(),

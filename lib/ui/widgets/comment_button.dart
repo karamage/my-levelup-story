@@ -23,6 +23,7 @@ class CommentButton extends StatelessWidget {
         color: Colors.white,
         textColor: Theme.of(context).primaryColor,
         onPressed: () {
+          if (tapComment != null) tapComment(item);
         },
       ),
     );
