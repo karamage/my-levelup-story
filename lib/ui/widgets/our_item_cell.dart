@@ -7,10 +7,12 @@ class OurItemCell extends ItemCell {
   OurItemCell({
     @required item,
     @required myUserId,
+    @required tapComment,
     @required tapLike,
   }): super(
       item: item,
       myUserId: myUserId,
+      tapComment: tapComment,
       tapLike: tapLike
   );
 

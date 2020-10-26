@@ -36,6 +36,7 @@ class ItemsScreen extends HookWidget {
               ItemCell(
                 item: item,
                 myUserId: myUserState.id,
+                tapComment: tapComment,
                 tapLike: tapLike,
                 tapEdit: tapEdit,
                 tapDelete: tapDelete,
@@ -61,7 +62,9 @@ class ItemsScreen extends HookWidget {
       await _vm.deleteItem(itemId);
       LoadingDialog.hideLoading(_context);
     }, item.id);
+  }
 
+  Future<void> tapComment(Item item) {
   }
 
   Future<void> completedEditItem(Item item) {

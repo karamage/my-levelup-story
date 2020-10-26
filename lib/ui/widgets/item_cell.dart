@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_levelup_story/data/models/item.dart';
+import 'package:my_levelup_story/ui/widgets/comment_button.dart';
 import 'package:my_levelup_story/ui/widgets/item_delete_button.dart';
 import 'package:my_levelup_story/ui/widgets/item_edit_button.dart';
 import 'package:my_levelup_story/ui/widgets/like_button.dart';
@@ -11,12 +12,14 @@ import 'package:my_levelup_story/util/app_router.dart';
 class ItemCell extends StatelessWidget {
   final Item item;
   final String myUserId;
+  final Future<void> Function(Item item) tapComment;
   final Future<void> Function(String itemId) tapLike;
   final Future<void> Function(Item item) tapEdit;
   final Future<void> Function(Item item) tapDelete;
   ItemCell({
     @required this.item,
     @required this.myUserId,
+    @required this.tapComment,
     @required this.tapLike,
     this.tapEdit,
     this.tapDelete,
@@ -24,6 +27,7 @@ class ItemCell extends StatelessWidget {
     assert(item != null);
     assert(myUserId != null);
     assert(tapLike != null);
+    assert(tapComment != null);
   }
 
   BuildContext _context;
@@ -82,11 +86,12 @@ class ItemCell extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /*
           Expanded(
-            child: CommentButton(item:item),
+            child: CommentButton(
+                item,
+                tapComment
+            ),
           ),
-          */
           Expanded(
             child: LikeButton(
                 isLiked: isMyLiked(),
