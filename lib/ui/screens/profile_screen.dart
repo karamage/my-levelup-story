@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_levelup_story/data/models/item.dart';
 import 'package:my_levelup_story/data/models/user.dart';
 import 'package:my_levelup_story/data/providers/my_user_provider.dart';
 import 'package:my_levelup_story/data/providers/profile_items_provider.dart';
@@ -12,17 +13,20 @@ import 'package:my_levelup_story/ui/widgets/our_item_cell.dart';
 import 'package:my_levelup_story/ui/widgets/space_box.dart';
 import 'package:my_levelup_story/ui/widgets/user_avator.dart';
 import 'package:my_levelup_story/ui/widgets/white_app_bar.dart';
+import 'package:my_levelup_story/util/app_router.dart';
 
 class ProfileScreen extends HookWidget {
   final userId;
   ProfileScreen({@required this.userId});
 
   ItemsViewModel _vm;
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
     final state = useProvider(profileItemsProvider(userId).state);
     _vm = useProvider(profileItemsProvider(userId));
+    _context ??= context;
     final userState = useProvider(userProvider(userId).state);
     final userVM = useProvider(userProvider(userId));
     final myUserState = useProvider(myUserProvider.state);
@@ -46,6 +50,7 @@ class ProfileScreen extends HookWidget {
                   item: item,
                   myUserId: myUserState.id,
                   tapLike: tapLike,
+                  tapComment: tapComment,
                 )
             ).toList(),
         isLoading: state.isLoading,
@@ -56,6 +61,10 @@ class ProfileScreen extends HookWidget {
 
   Future<void> tapLike(String itemId) {
     _vm.addLike(itemId);
+  }
+
+  Future<void> tapComment(Item item) {
+    Navigator.pushNamed(_context, AppRouter.commentsRoute, arguments: [item]);
   }
 
   Widget _buildHeader(BuildContext ctx, User user) {
