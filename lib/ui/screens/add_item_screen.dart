@@ -80,7 +80,6 @@ class AddItemScreen extends HookWidget {
   Widget _buildBodyForm(TextEditingController bodyController) {
     return TextField(
       controller: bodyController,
-      //maxLines: 3,
       maxLines: null,
       maxLength: 180,
       keyboardType: TextInputType.multiline,
