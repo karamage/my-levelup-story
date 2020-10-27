@@ -56,8 +56,12 @@ class ItemsScreen extends HookWidget {
   }
 
   Future<void> tapDelete(Item item) {
-    AlertDialogManager.showConfirmDialog(_context, "削除確認",
-        "本当に削除してもよろしいですか?", "削除する", (itemId) async {
+    AlertDialogManager.showConfirmDialog(
+        _context,
+        "削除確認",
+        "本当に削除してもよろしいですか?",
+        "削除する",
+            (itemId) async {
       LoadingDialog.showLoading(_context);
       await _vm.deleteItem(itemId);
       LoadingDialog.hideLoading(_context);
