@@ -73,6 +73,5 @@ class ItemsScreen extends HookWidget {
   }
 
   Future<void> completedEditItem(Item item) {
-    //TODO 必要ないので消す
   }
 }
